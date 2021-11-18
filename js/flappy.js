@@ -83,6 +83,7 @@ function Passaro(alturaJogo) {
     this.setY = y => this.elemento.style.bottom = `${y}px`
 
     window.onkeydown = e => voando = true
+    window.Touch = e => voando = true
     window.onkeyup = e => voando = false
 
     this.animar = () => {
