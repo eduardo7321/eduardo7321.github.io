@@ -20,10 +20,15 @@ body {
 
 .conteudo {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex-direction:column;
+    align-items:flex-start;
     min-height: 100%;
 }
+
+.ex {
+padding-left: 50px;
+}
+
 
 .exercicio div {
     font-size: 3em;
