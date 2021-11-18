@@ -1,6 +1,6 @@
 var btn = document.querySelector("#reset");
 
-btn.addEventListener("click", function() {
+btn.addEventListener("click ontouchstart", function() {
     
     location.reload();
 
