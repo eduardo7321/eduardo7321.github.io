@@ -1,0 +1,3 @@
+# app-ads.txt do Laboratório de Fótons (com.eduardo.laboratoriodefotons).
+# Pendente: substituir pela linha abaixo com o ID de editor do AdMob (pub-...) e tirar o "#".
+# google.com, pub-XXXXXXXXXXXXXXXX, DIRECT, f08c47fec0942fa0
