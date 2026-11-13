@@ -6,7 +6,7 @@
 <!-- A marca aparece em poucos lugares de proposito: title, og:site_name, o
      cabecalho e o rodape. Para trocar o nome, procure "Iluminar Apps". -->
 <title>Iluminar Apps — jogos para aprender</title>
-<meta name="description" content="Jogos para Android que ensinam de verdade: Órbita (mecânica orbital) e Laboratório de Fótons (física quântica). Grátis, em português e inglês.">
+<meta name="description" content="Jogos para Android que ensinam de verdade: Órbita (mecânica orbital), Laboratório de Fótons (física quântica) e Laboratório Periódico (química).">
 <meta property="og:site_name" content="Iluminar Apps">
 <meta property="og:title" content="Iluminar Apps — jogos para aprender">
 <meta property="og:description" content="Jogos para Android que ensinam de verdade. Para estudantes, professores e curiosos.">
@@ -30,6 +30,9 @@
     --fotons-bg: #10161f;
     --fotons-text: #eaf2f8;
     --fotons-soft: #9fb1c2;
+    --periodico-bg: #0e2a28;
+    --periodico-text: #e6f6f2;
+    --periodico-soft: #9cc7bd;
     --display: "Bricolage Grotesque", system-ui, sans-serif;
     --body: "Atkinson Hyperlegible", system-ui, sans-serif;
   }
@@ -94,6 +97,13 @@
   .fotons .shots img { width: 300px; }
   .soon { display: inline-block; padding: 13px 20px; border-radius: 999px; border: 2px dashed rgba(255,255,255,.35); font-weight: 700; }
 
+  .periodico { background: var(--periodico-bg); color: var(--periodico-text); }
+  .periodico .en, .periodico .meta { color: var(--periodico-soft); }
+  .periodico .feature { background: #cfeee6; padding: 18px; }
+  .cast { display: flex; gap: 6px; margin-top: 18px; }
+  .cast figure { margin: 0; flex: 1 1 0; text-align: center; font-size: 0.9rem; color: var(--periodico-soft); }
+  .cast img { margin: 0 auto 4px; width: 100%; max-width: 120px; }
+
   /* professores */
   .teach { padding: 84px 0; }
   .teach h2 { font-size: clamp(1.9rem, 4vw, 2.8rem); font-weight: 800; max-width: 22ch; }
@@ -127,7 +137,7 @@
   }
   @media (max-width: 560px) {
     body { font-size: 17px; }
-    .wrap { padding: 0 16px; }
+    .wrap { padding-left: 16px; padding-right: 16px; }
     .top nav { display: none; }
     .phones { height: 300px; }
     .phones img { width: 128px; border-width: 4px; border-radius: 18px; }
@@ -157,7 +167,7 @@
   <section class="wrap hero">
     <div>
       <h1>Jogos que ensinam de verdade.</h1>
-      <p>Pilote um foguete pela gravidade real da Terra. Guie a luz por espelhos e veja a física quântica acontecer. Para estudantes, professores e curiosos.</p>
+      <p>Pilote um foguete pela gravidade real da Terra. Guie a luz por espelhos e veja a física quântica acontecer. Combine elementos químicos para vencer a Ferrugem. Para estudantes, professores e curiosos.</p>
       <a class="btn btn-ink" href="#jogos">Conhecer os jogos</a>
     </div>
     <div class="phones" aria-hidden="true">
@@ -236,14 +246,46 @@
         </div>
       </div>
     </section>
+    <section class="game periodico" aria-labelledby="t-periodico">
+      <div class="wrap">
+        <div class="game-head">
+          <img src="img/periodico-icone.png" alt="" width="192" height="192">
+          <div>
+            <h2 id="t-periodico">Laboratório Periódico</h2>
+            <p class="en">Um RPG de química em que os heróis são elementos da tabela periódica.</p>
+          </div>
+        </div>
+        <div class="game-body">
+          <div>
+            <p>Hidrogênio, Sódio e Cloro enfrentam vilões como a Ferrugem em batalhas por turnos. Para atacar, você combina dois elementos: se a reação existe, ela aparece com a equação real e balanceada.</p>
+            <ul class="learn">
+              <li>Reações químicas de verdade, cada uma com fonte registrada</li>
+              <li>Propriedades reais em jogo: o cromo, por exemplo, resiste à ferrugem</li>
+              <li>Ilhas para explorar: metais, ligas, ácidos e bases, sais</li>
+              <li>Cada reação vira uma pergunta de quiz</li>
+            </ul>
+            <span class="soon">Em breve na Google Play</span>
+          </div>
+          <div>
+            <img class="feature" src="img/periodico-mapa.png" alt="Mapa do Continente dos Metais, com mina, castelo e porto" width="1024" height="569" loading="lazy">
+            <div class="cast">
+              <figure><img src="img/periodico-h.png" alt="" width="220" height="220" loading="lazy">Hidrogênio</figure>
+              <figure><img src="img/periodico-na.png" alt="" width="220" height="220" loading="lazy">Sódio</figure>
+              <figure><img src="img/periodico-cl.png" alt="" width="220" height="220" loading="lazy">Cloro</figure>
+              <figure><img src="img/periodico-ferrugem.png" alt="" width="220" height="220" loading="lazy">Ferrugem</figure>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   </div>
 
   <section class="wrap teach" id="professores" aria-labelledby="t-teach">
     <h2 id="t-teach">Feito para usar em sala de aula, também.</h2>
     <div class="teach-grid">
       <div>
-        <h3>Física de verdade</h3>
-        <p>Os jogos usam leis e valores reais. Onde há simplificação para caber no jogo, ela é dita no próprio jogo, sem fingir.</p>
+        <h3>Ciência de verdade</h3>
+        <p>Os jogos usam leis, valores e reações reais. Onde há simplificação para caber no jogo, ela é dita no próprio jogo, sem fingir.</p>
       </div>
       <div>
         <h3>Sem cadastro nem compras</h3>
@@ -262,7 +304,7 @@
       <img src="img/harpa-icone.png" alt="" width="192" height="192">
       <div>
         <h3>Harpa Cristã</h3>
-        <p>Os 640 hinos da Harpa Cristã, com busca na letra, listas e modo escuro.</p>
+        <p>Os 640 hinos da Harpa Cristã, com busca na letra, listas e modo escuro. Sem anúncios e funciona totalmente offline.</p>
       </div>
       <div class="links">
         <a class="btn btn-ink" href="https://play.google.com/store/apps/details?id=com.eduardo.harpacrista">Baixar na Google Play</a>
