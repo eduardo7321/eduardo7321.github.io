@@ -100,6 +100,8 @@
   .periodico { background: var(--periodico-bg); color: var(--periodico-text); }
   .periodico .en, .periodico .meta { color: var(--periodico-soft); }
   .periodico .feature { background: #cfeee6; padding: 18px; }
+  .shot-fig { margin: 0; }
+  .shot-fig figcaption { margin-top: 8px; font-size: 0.92rem; color: var(--periodico-soft); }
   .cast { display: flex; gap: 6px; margin-top: 18px; }
   .cast figure { margin: 0; flex: 1 1 0; text-align: center; font-size: 0.9rem; color: var(--periodico-soft); }
   .cast img { margin: 0 auto 4px; width: 100%; max-width: 120px; }
@@ -107,7 +109,7 @@
   /* professores */
   .teach { padding: 84px 0; }
   .teach h2 { font-size: clamp(1.9rem, 4vw, 2.8rem); font-weight: 800; max-width: 22ch; }
-  .teach-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 34px; margin-top: 36px; }
+  .teach-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 30px 48px; margin-top: 36px; max-width: 900px; }
   .teach h3 { font-size: 1.2rem; font-weight: 600; margin-bottom: 8px; }
   .teach p { margin: 0; color: var(--ink-soft); }
 
@@ -257,17 +259,21 @@
         </div>
         <div class="game-body">
           <div>
-            <p>Hidrogênio, Sódio e Cloro enfrentam vilões como a Ferrugem em batalhas por turnos. Para atacar, você combina dois elementos: se a reação existe, ela aparece com a equação real e balanceada.</p>
+            <p>Monte um time de três elementos e enfrente vilões como a Ferrugem em batalhas por turnos. Para atacar, combine dois heróis: se a reação existe de verdade, ela acontece na tela com a equação real e balanceada. Se a combinação ainda não tem fonte, o jogo diz isso, sem inventar química.</p>
             <ul class="learn">
-              <li>Reações químicas de verdade, cada uma com fonte registrada</li>
-              <li>Propriedades reais em jogo: o cromo, por exemplo, resiste à ferrugem</li>
-              <li>Ilhas para explorar: metais, ligas, ácidos e bases, sais</li>
-              <li>Cada reação vira uma pergunta de quiz</li>
+              <li>40 reações químicas reais, cada uma com fonte registrada (IUPAC, PubChem, NIST e livros de química geral)</li>
+              <li>A tabela periódica é a tela de escolha do time: grupo, período e número atômico aparecem enquanto você joga</li>
+              <li>Propriedades reais viram estratégia: o alumínio se protege com uma camada de alumina, e o cromo e o níquel resistem à corrosão</li>
+              <li>4 ilhas e 20 fases: Metais, Sais, Ácidos e Bases e Ligas, com um chefe no fim de cada ilha</li>
             </ul>
             <span class="soon">Em breve na Google Play</span>
+            <p class="meta">Android · português · a partir de 13 anos</p>
           </div>
           <div>
-            <img class="feature" src="img/periodico-mapa.png" alt="Mapa do Continente dos Metais, com mina, castelo e porto" width="1024" height="569" loading="lazy">
+            <figure class="shot-fig">
+              <img class="feature" src="img/periodico-mapa.png" alt="" width="1024" height="569" loading="lazy">
+              <figcaption>Mapa do Continente dos Metais, com mina, castelo e porto</figcaption>
+            </figure>
             <div class="cast">
               <figure><img src="img/periodico-h.png" alt="" width="220" height="220" loading="lazy">Hidrogênio</figure>
               <figure><img src="img/periodico-na.png" alt="" width="220" height="220" loading="lazy">Sódio</figure>
@@ -293,7 +299,11 @@
       </div>
       <div>
         <h3>Funciona offline</h3>
-        <p>Tudo roda sem internet. Com internet, aparece um anúncio de vez em quando, sempre entre fases, nunca no meio do jogo.</p>
+        <p>Tudo roda sem internet. Alguns jogos mostram um anúncio de vez em quando, sempre entre fases e nunca no meio do jogo. O Laboratório Periódico não tem anúncios.</p>
+      </div>
+      <div>
+        <h3>Seguro para a escola</h3>
+        <p>Os jogos explicam o fenômeno, mas nunca ensinam procedimento de laboratório. Reações perigosas aparecem com um aviso.</p>
       </div>
     </div>
   </section>
