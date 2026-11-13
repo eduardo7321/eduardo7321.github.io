@@ -102,6 +102,9 @@
   .periodico .feature { background: #cfeee6; padding: 18px; }
   .shot-fig { margin: 0; }
   .shot-fig figcaption { margin-top: 8px; font-size: 0.92rem; color: var(--periodico-soft); }
+  .periodico .shots figure { flex: 0 0 auto; width: 300px; margin: 0; scroll-snap-align: start; }
+  .periodico .shots img { width: 100%; }
+  .periodico .shots figcaption { margin-top: 8px; font-size: 0.9rem; line-height: 1.4; color: var(--periodico-soft); }
   .cast { display: flex; gap: 6px; margin-top: 18px; }
   .cast figure { margin: 0; flex: 1 1 0; text-align: center; font-size: 0.9rem; color: var(--periodico-soft); }
   .cast img { margin: 0 auto 4px; width: 100%; max-width: 120px; }
@@ -148,6 +151,7 @@
     .game-head img { width: 64px; height: 64px; border-radius: 15px; }
     .orbita .shots img { width: 140px; }
     .fotons .shots img { width: 250px; }
+    .periodico .shots figure { width: 250px; }
     .harpa { grid-template-columns: 64px 1fr; }
     .harpa img { width: 64px; height: 64px; }
     .harpa .links { grid-column: 1 / -1; flex-direction: row; justify-content: flex-start; flex-wrap: wrap; gap: 14px; align-items: center; }
@@ -274,6 +278,11 @@
               <img class="feature" src="img/periodico-mapa.png" alt="" width="1024" height="569" loading="lazy">
               <figcaption>Mapa do Continente dos Metais, com mina, castelo e porto</figcaption>
             </figure>
+            <div class="shots" tabindex="0" aria-label="Telas do Laboratório Periódico">
+              <figure><img src="img/periodico-escolha_time.jpg" alt="" width="720" height="405" loading="lazy"><figcaption>Escolha do time na tabela periódica</figcaption></figure>
+              <figure><img src="img/periodico-golpe_anunciado.jpg" alt="" width="720" height="405" loading="lazy"><figcaption>Batalha: o vilão anuncia o golpe e você decide se esquiva</figcaption></figure>
+              <figure><img src="img/periodico-caderno.jpg" alt="" width="720" height="405" loading="lazy"><figcaption>Caderno de reações descobertas</figcaption></figure>
+            </div>
             <div class="cast">
               <figure><img src="img/periodico-h.png" alt="" width="220" height="220" loading="lazy">Hidrogênio</figure>
               <figure><img src="img/periodico-na.png" alt="" width="220" height="220" loading="lazy">Sódio</figure>
