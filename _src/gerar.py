@@ -27,7 +27,7 @@ def _extras(lang, raiz):
     botoes = []
     for cod, (pasta, rotulo) in IDIOMAS.items():
         atual = ' aria-current="true"' if cod == lang else ""
-        href = (raiz + pasta) or "./"
+        href = ((raiz + pasta) or "./") + f"?lang={cod}"
         botoes.append(f'<a href="{href}" hreflang="{cod}" lang="{cod}"{atual} '
                       f'onclick="guardarIdioma(\'{cod}\')">{rotulo}</a>')
     troca = ('<div class="lang" role="group" aria-label="Idioma / Language">'

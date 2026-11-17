@@ -67,6 +67,41 @@ class Site(unittest.TestCase):
             r = self._node(f"console.log(String(escolherIdioma({json.dumps(langs)}, {json.dumps(salvo)}, {json.dumps(caminho)})))")
             self.assertEqual(r, esperado, (langs, salvo, caminho))
 
+    def _pagina(self, idioma, caminho, busca, storage_lanca):
+        """Roda o idioma.js como no navegador; devolve para onde redirecionou."""
+        js = (SRC / "idioma.js").read_text(encoding="utf-8")
+        ambiente = (
+            "var destino = null;"
+            "var location = {protocol: 'https:', pathname: %s, search: %s, hash: '',"
+            " replace: function (u) { destino = u; }};"
+            "var navigator = {userAgent: 'Mozilla/5.0', languages: [%s]};"
+            "var window = {};"
+            "Object.defineProperty(window, 'localStorage', {get: function () {"
+            "  if (%s) throw new Error('SecurityError'); return {getItem: function () { return null; }};"
+            "}});"
+        ) % (json.dumps(caminho), json.dumps(busca), json.dumps(idioma), "true" if storage_lanca else "false")
+        # Dentro de uma funcao: o Node tem um `navigator` global que nao aceita troca.
+        codigo = "(function () {" + ambiente + js + "\nconsole.log(String(destino)); })()"
+        out = subprocess.run(["node", "-e", codigo],
+                             capture_output=True, text=True)
+        self.assertEqual(out.returncode, 0, out.stderr)
+        return out.stdout.strip()
+
+    def test_storage_bloqueado_no_navegador(self):
+        # Ler window.localStorage lanca: a pagina nao quebra e segue o aparelho.
+        self.assertEqual(self._pagina("en-US", "/", "", True), "/en/")
+        self.assertEqual(self._pagina("pt-BR", "/", "", True), "null")
+
+    def test_botao_pt_sem_storage(self):
+        # Aparelho em ingles, storage bloqueado, clicou PT: fica no portugues.
+        self.assertEqual(self._pagina("en-US", "/", "?lang=pt", True), "null")
+        self.assertEqual(self._pagina("pt-BR", "/en/", "?lang=en", True), "null")
+
+    def test_links_carregam_escolha(self):
+        self.assertIn('href="./?lang=pt"', self.pt)
+        self.assertIn('href="en/?lang=en"', self.pt)
+        self.assertIn('href="../?lang=pt"', self.en)
+
     def test_storage_bloqueado(self):
         r = self._node('var s={getItem:function(){throw new Error("bloqueado")}};'
                        'console.log(String(lerSalvo(s)))')
