@@ -1,0 +1,453 @@
+<!doctype html>
+<html lang="{{html_lang}}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- A marca aparece em poucos lugares de proposito: title, og:site_name, o
+     cabecalho e o rodape. Para trocar o nome, procure "Iluminar Apps". -->
+{{title}}
+<meta name="description" {{meta_desc}}>
+<meta property="og:site_name" content="Iluminar Apps">
+<meta property="og:title" {{og_title}}>
+<meta property="og:description" {{og_desc}}>
+<meta property="og:image" content="https://eduardo7321.github.io/img/orbita-destaque.jpg">
+{{cabeca_idioma}}
+<link rel="icon" href="{{raiz}}favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #f6f8fc;
+    --ink: #14213d;
+    --ink-soft: #4a5875;
+    --line: #d9e0ec;
+    --gold: #ffcf5a;
+    --gold-ink: #8a5a00;
+    /* cada jogo tem o seu mundo */
+    --orbita-bg: #120f2e;
+    --orbita-text: #ece9ff;
+    --orbita-soft: #b3acd9;
+    --fotons-bg: #10161f;
+    --fotons-text: #eaf2f8;
+    --fotons-soft: #9fb1c2;
+    --periodico-bg: #0e2a28;
+    --periodico-text: #e6f6f2;
+    --periodico-soft: #9cc7bd;
+    --display: "Bricolage Grotesque", system-ui, sans-serif;
+    --body: "Atkinson Hyperlegible", system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  body { margin: 0; background: var(--paper); color: var(--ink); font: 18px/1.6 var(--body); }
+  img { display: block; max-width: 100%; height: auto; }
+  a { color: inherit; }
+  a:focus-visible, .btn:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; border-radius: 6px; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+  h1, h2, h3 { font-family: var(--display); line-height: 1.08; margin: 0; }
+
+  /* cabecalho */
+  .top { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 18px 0; }
+  .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; font-family: var(--display); font-weight: 800; font-size: 1.2rem; }
+  .brand img { width: 40px; height: 40px; border-radius: 50%; }
+  .top nav { display: flex; gap: 22px; font-size: 0.98rem; }
+  .top nav a { text-decoration: none; color: var(--ink-soft); }
+  .top nav a:hover { color: var(--ink); text-decoration: underline; }
+
+  /* idioma */
+  .lang { display: flex; gap: 4px; font-size: 0.95rem; font-weight: 700; }
+  .lang a { padding: 6px 12px; border-radius: 999px; text-decoration: none; color: var(--ink-soft); }
+  .lang a:hover { color: var(--ink); background: var(--line); }
+  .lang a[aria-current] { background: var(--ink); color: #fff; }
+  video.feature { display: block; width: 100%; height: auto; background: #000; }
+
+  /* abertura */
+  .hero { display: grid; grid-template-columns: 1.05fr 1fr; gap: 40px; align-items: center; padding: 40px 0 72px; }
+  .hero h1 { font-size: clamp(2.6rem, 6vw, 4.6rem); font-weight: 800; letter-spacing: -0.02em; }
+  .hero p { font-size: 1.2rem; color: var(--ink-soft); max-width: 34ch; margin: 22px 0 30px; }
+  .phones { position: relative; height: 470px; }
+  .phones img { position: absolute; width: 210px; border-radius: 26px; border: 6px solid var(--ink); box-shadow: 0 24px 50px -20px rgba(20,33,61,.55); }
+  .phones .p1 { left: 4%; top: 30px; transform: rotate(-7deg); }
+  .phones .p2 { left: 36%; top: 0; z-index: 2; }
+  .phones .p3 { right: 0; top: 46px; transform: rotate(6deg); }
+
+  .btn { display: inline-flex; align-items: center; gap: 10px; padding: 14px 22px; border-radius: 999px; font-weight: 700; text-decoration: none; font-size: 1rem; }
+  .btn-ink { background: var(--ink); color: #fff; }
+  .btn-ink:hover { background: #22325a; }
+  .btn-gold { background: var(--gold); color: #1d1500; }
+  .btn-gold:hover { background: #ffd977; }
+  .btn svg { width: 20px; height: 20px; }
+
+  /* jogos: cada um ocupa a largura inteira, no visual dele */
+  .game { padding: 80px 0; }
+  .game-head { display: grid; grid-template-columns: 96px 1fr; gap: 22px; align-items: center; margin-bottom: 30px; }
+  .game-head img { width: 96px; height: 96px; border-radius: 22px; }
+  .game h2 { font-size: clamp(2rem, 4.4vw, 3.2rem); font-weight: 800; letter-spacing: -0.015em; }
+  .game .en { margin: 6px 0 0; font-size: 1rem; }
+  .game-body { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px; align-items: start; }
+  .game-body > div > p:first-child { font-size: 1.15rem; margin-top: 0; }
+  .learn { margin: 18px 0 26px; padding: 0; list-style: none; }
+  .learn li { padding: 9px 0 9px 30px; position: relative; border-top: 1px solid rgba(255,255,255,.12); }
+  .learn li::before { content: ""; position: absolute; left: 4px; top: 19px; width: 10px; height: 10px; border-radius: 50%; background: var(--gold); }
+  .meta { font-size: 0.95rem; margin: 18px 0 0; }
+  .meta a { text-underline-offset: 3px; }
+  .feature { border-radius: 18px; overflow: hidden; }
+  .shots { display: flex; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 26px 0 6px; }
+  .shots img { scroll-snap-align: start; flex: 0 0 auto; border-radius: 14px; }
+
+  .orbita { background: var(--orbita-bg); color: var(--orbita-text); }
+  .orbita .en, .orbita .meta { color: var(--orbita-soft); }
+  .orbita .shots img { width: 170px; }
+
+  .fotons { background: var(--fotons-bg); color: var(--fotons-text); }
+  .fotons .en, .fotons .meta { color: var(--fotons-soft); }
+  .fotons .shots img { width: 300px; }
+  .soon { display: inline-block; padding: 13px 20px; border-radius: 999px; border: 2px dashed rgba(255,255,255,.35); font-weight: 700; }
+
+  .periodico { background: var(--periodico-bg); color: var(--periodico-text); }
+  .periodico .en, .periodico .meta { color: var(--periodico-soft); }
+  .periodico .feature { background: #cfeee6; padding: 18px; }
+  .shot-fig { margin: 0; }
+  .shot-fig figcaption { margin-top: 8px; font-size: 0.92rem; color: var(--periodico-soft); }
+  .periodico .shots figure { flex: 0 0 auto; width: 300px; margin: 0; scroll-snap-align: start; }
+  .periodico .shots img { width: 100%; }
+  .periodico .shots figcaption { margin-top: 8px; font-size: 0.9rem; line-height: 1.4; color: var(--periodico-soft); }
+  .cast { display: flex; gap: 6px; margin-top: 18px; }
+  .cast figure { margin: 0; flex: 1 1 0; text-align: center; font-size: 0.9rem; color: var(--periodico-soft); }
+  .cast img { margin: 0 auto 4px; width: 100%; max-width: 120px; }
+
+  /* professores */
+  .teach { padding: 84px 0; }
+  .teach h2 { font-size: clamp(1.9rem, 4vw, 2.8rem); font-weight: 800; max-width: 22ch; }
+  .teach-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 30px 48px; margin-top: 36px; max-width: 900px; }
+  .teach h3 { font-size: 1.2rem; font-weight: 600; margin-bottom: 8px; }
+  .teach p { margin: 0; color: var(--ink-soft); }
+
+  /* outros apps */
+  .others { padding: 0 0 84px; }
+  .others h2 { font-size: 1.5rem; font-weight: 600; margin-bottom: 18px; }
+  .harpa { display: grid; grid-template-columns: 88px 1fr auto; gap: 20px; align-items: center; padding: 22px; border: 1px solid var(--line); border-radius: 18px; background: #fff; }
+  .harpa img { width: 88px; height: 88px; border-radius: 20px; }
+  .harpa h3 { font-size: 1.3rem; font-weight: 600; }
+  .harpa p { margin: 4px 0 0; color: var(--ink-soft); font-size: 1rem; }
+  .harpa .links { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; font-size: 0.95rem; }
+
+  /* fale conosco */
+  .talk { padding: 0 0 84px; }
+  .talk-box { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 40px; padding: 36px; border: 1px solid var(--line); border-radius: 18px; background: #fff; }
+  .talk h2 { font-size: clamp(1.7rem, 3.5vw, 2.3rem); font-weight: 800; }
+  .talk-intro p { color: var(--ink-soft); margin: 14px 0 0; }
+  .talk form { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 18px; }
+  .talk .full { grid-column: 1 / -1; }
+  .talk label { display: block; font-weight: 700; font-size: 0.95rem; margin-bottom: 6px; }
+  .talk input, .talk select, .talk textarea { width: 100%; font: inherit; font-size: 1rem; color: var(--ink); background: var(--paper); border: 1px solid #b9c4d8; border-radius: 10px; padding: 11px 13px; }
+  .talk textarea { min-height: 140px; resize: vertical; }
+  .talk input:focus-visible, .talk select:focus-visible, .talk textarea:focus-visible { outline: 3px solid var(--gold); outline-offset: 1px; border-color: var(--ink); }
+  .talk button { border: 0; cursor: pointer; font-family: inherit; justify-self: start; }
+  .talk button[disabled] { opacity: 0.6; cursor: wait; }
+  .talk .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  .talk .status { margin: 0; align-self: center; font-weight: 700; }
+  .talk .status.ok { color: #1d6b3a; }
+  .talk .status.err { color: #a12a2a; }
+
+  /* rodape */
+  footer { background: var(--ink); color: #cfd7e6; padding: 48px 0; font-size: 0.98rem; }
+  footer .wrap { display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 30px; }
+  footer h3 { color: #fff; font-size: 1.05rem; font-weight: 600; margin-bottom: 10px; }
+  footer p { margin: 0 0 6px; }
+  footer a { color: #fff; text-underline-offset: 3px; }
+
+  @media (max-width: 860px) {
+    .hero { grid-template-columns: 1fr; padding-top: 16px; }
+    .phones { height: 380px; max-width: 460px; }
+    .phones img { width: 170px; }
+    .game-body { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+    .teach-grid { grid-template-columns: 1fr; gap: 22px; }
+    footer .wrap { grid-template-columns: 1fr; }
+    .talk-box { grid-template-columns: 1fr; gap: 24px; padding: 24px; }
+  }
+  @media (max-width: 560px) {
+    body { font-size: 17px; }
+    .wrap { padding-left: 16px; padding-right: 16px; }
+    .talk form { grid-template-columns: 1fr; }
+    .talk-box { padding: 20px 16px; }
+    .top nav { display: none; }
+    .phones { height: 300px; }
+    .phones img { width: 128px; border-width: 4px; border-radius: 18px; }
+    .game { padding: 56px 0; }
+    .game-head { grid-template-columns: 64px 1fr; gap: 14px; }
+    .game-head img { width: 64px; height: 64px; border-radius: 15px; }
+    .orbita .shots img { width: 140px; }
+    .fotons .shots img { width: 250px; }
+    .periodico .shots figure { width: 250px; }
+    .harpa { grid-template-columns: 64px 1fr; }
+    .harpa img { width: 64px; height: 64px; }
+    .harpa .links { grid-column: 1 / -1; flex-direction: row; justify-content: flex-start; flex-wrap: wrap; gap: 14px; align-items: center; }
+  }
+</style>
+</head>
+<body>
+
+<header class="wrap top">
+  <a class="brand" href="./"><img src="{{raiz}}img/marca-simbolo.png" alt="">Iluminar Apps</a>
+  <nav {{nav_label}}>
+    <a href="#jogos"{{nav_jogos}}
+    <a href="#professores"{{nav_prof}}
+    {{nav_contato}}
+  </nav>
+  {{troca_idioma}}
+</header>
+
+<main>
+  <section class="wrap hero">
+    <div>
+      <h1>{{hero_h1}}</h1>
+      <p>{{hero_p}}</p>
+      <a class="btn btn-ink" href="#jogos">{{hero_btn}}</a>
+    </div>
+    <div class="phones" aria-hidden="true">
+      <img class="p1" src="{{raiz}}img/orbita-tela-7-marte.jpg" alt="" width="360" height="640">
+      <img class="p2" src="{{raiz}}img/orbita-tela-4-voo.jpg" alt="" width="360" height="640">
+      <img class="p3" src="{{raiz}}img/orbita-tela-5-dica.jpg" alt="" width="360" height="640">
+    </div>
+  </section>
+
+  <div id="jogos">
+    <section class="game orbita" aria-labelledby="t-orbita">
+      <div class="wrap">
+        <div class="game-head">
+          <img src="{{raiz}}img/orbita-icone.png" alt="" width="192" height="192">
+          <div>
+            {{orb_h2}}
+            {{orb_tag}}
+          </div>
+        </div>
+        <div class="game-body">
+          <div>
+            <p>{{orb_p}}</p>
+            <ul class="learn">
+              <li>{{orb_l1}}</li>
+              <li>{{orb_l2}}</li>
+              <li>{{orb_l3}}</li>
+              <li>{{orb_l4}}</li>
+            </ul>
+            <a class="btn btn-gold" href="https://play.google.com/store/apps/details?id=com.eduardo.orbita">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 2.8v18.4c0 .5.5.8 1 .6l15.6-8.9c.5-.3.5-1 0-1.3L5 2.2c-.5-.2-1 .1-1 .6Z"/></svg>
+              {{btn_play_gratis}}
+            </a>
+            <p class="meta">{{orb_meta}} href="https://eduardo7321.github.io/orbita-privacidade/"{{politica}}</p>
+          </div>
+          <div>
+            {{orbita_video}}
+            <div class="shots" tabindex="0" {{orb_shots}}>
+              <img src="{{raiz}}img/orbita-tela-4-voo.jpg" {{orb_alt1}} width="360" height="640" loading="lazy">
+              <img src="{{raiz}}img/orbita-tela-5-dica.jpg" {{orb_alt2}} width="360" height="640" loading="lazy">
+              <img src="{{raiz}}img/orbita-tela-7-marte.jpg" {{orb_alt3}} width="360" height="640" loading="lazy">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="game fotons" aria-labelledby="t-fotons">
+      <div class="wrap">
+        <div class="game-head">
+          <img src="{{raiz}}img/fotons-icone.png" alt="" width="192" height="192">
+          <div>
+            {{fot_h2}}
+            {{fot_tag}}
+          </div>
+        </div>
+        <div class="game-body">
+          <div>
+            <p>{{fot_p}}</p>
+            <ul class="learn">
+              <li>{{fot_l1}}</li>
+              <li>{{fot_l2}}</li>
+              <li>{{fot_l3}}</li>
+              <li>{{fot_l4}}</li>
+            </ul>
+            {{em_breve}}
+            <p class="meta">{{fot_meta}} href="https://eduardo7321.github.io/laboratorio-de-fotons-privacidade/"{{politica}}</p>
+          </div>
+          <div>
+            <img class="feature" src="{{raiz}}img/fotons-destaque.jpg" {{fot_alt_dest}} width="1024" height="500" loading="lazy">
+            <div class="shots" tabindex="0" {{fot_shots}}>
+              <img src="{{raiz}}img/fotons-tela-3-interferencia.jpg" {{fot_alt1}} width="720" height="405" loading="lazy">
+              <img src="{{raiz}}img/fotons-tela-4-bomba.jpg" {{fot_alt2}} width="720" height="405" loading="lazy">
+              <img src="{{raiz}}img/fotons-tela-6-desafio.jpg" {{fot_alt3}} width="720" height="405" loading="lazy">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="game periodico" aria-labelledby="t-periodico">
+      <div class="wrap">
+        <div class="game-head">
+          <img src="{{raiz}}img/periodico-icone.png" alt="" width="192" height="192">
+          <div>
+            {{per_h2}}
+            <p class="en">{{per_tag}}</p>
+          </div>
+        </div>
+        <div class="game-body">
+          <div>
+            <p>{{per_p}}</p>
+            <ul class="learn">
+              <li>{{per_l1}}</li>
+              <li>{{per_l2}}</li>
+              <li>{{per_l3}}</li>
+              <li>{{per_l4}}</li>
+            </ul>
+            {{em_breve}}
+            <p class="meta">{{per_meta}}</p>
+          </div>
+          <div>
+            <figure class="shot-fig">
+              <img class="feature" src="{{raiz}}img/periodico-mapa.png" alt="" width="1024" height="569" loading="lazy">
+              <figcaption>{{per_cap_mapa}}</figcaption>
+            </figure>
+            <div class="shots" tabindex="0" {{per_shots}}>
+              <figure><img src="{{raiz}}img/periodico-escolha_time.jpg" alt="" width="720" height="405" loading="lazy"><figcaption>{{per_cap1}}</figcaption></figure>
+              <figure><img src="{{raiz}}img/periodico-golpe_anunciado.jpg" alt="" width="720" height="405" loading="lazy"><figcaption>{{per_cap2}}</figcaption></figure>
+              <figure><img src="{{raiz}}img/periodico-caderno.jpg" alt="" width="720" height="405" loading="lazy"><figcaption>{{per_cap3}}</figcaption></figure>
+            </div>
+            <div class="cast">
+              <figure><img src="{{raiz}}img/periodico-h.png" alt="" width="220" height="220" loading="lazy"{{per_h}}
+              <figure><img src="{{raiz}}img/periodico-na.png" alt="" width="220" height="220" loading="lazy"{{per_na}}
+              <figure><img src="{{raiz}}img/periodico-cl.png" alt="" width="220" height="220" loading="lazy"{{per_cl}}
+              <figure><img src="{{raiz}}img/periodico-ferrugem.png" alt="" width="220" height="220" loading="lazy"{{per_fe}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <section class="wrap teach" id="professores" aria-labelledby="t-teach">
+    <h2 id="t-teach">{{teach_h2}}</h2>
+    <div class="teach-grid">
+      <div>
+        {{teach_h1}}
+        <p>{{teach_p1}}</p>
+      </div>
+      <div>
+        {{teach_h2b}}
+        <p>{{teach_p2}}</p>
+      </div>
+      <div>
+        {{teach_h3}}
+        <p>{{teach_p3}}</p>
+      </div>
+      <div>
+        {{teach_h4}}
+        <p>{{teach_p4}}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap others" aria-labelledby="t-others">
+    {{others_h2}}
+    <div class="harpa">
+      <img src="{{raiz}}img/harpa-icone.png" alt="" width="192" height="192">
+      <div>
+        <h3>Harpa Cristã</h3>
+        <p>{{harpa_p}}</p>
+      </div>
+      <div class="links">
+        <a class="btn btn-ink" href="https://play.google.com/store/apps/details?id=com.eduardo.harpacrista"{{btn_play}}
+        <a href="https://github.com/eduardo7321/harpa-crista-app/blob/main/PRIVACY.md"{{politica_maiusc}}
+      </div>
+    </div>
+  </section>
+  <section class="wrap talk" id="fale" aria-labelledby="t-talk">
+    <div class="talk-box">
+      <div class="talk-intro">
+        {{talk_h2}}
+        <p>{{talk_p}}</p>
+      </div>
+      <form id="form-contato" action="https://api.web3forms.com/submit" method="POST">
+        <input type="hidden" name="access_key" value="05b9c1f4-1745-42df-a26c-b01f97ce2084">
+        <input type="hidden" name="from_name" value="Site Iluminar Apps">
+        <input type="hidden" name="subject" value="Nova mensagem pelo site">
+        <div class="hp" aria-hidden="true"><label for="f-botcheck"{{f_hp}}<input type="checkbox" id="f-botcheck" name="botcheck" tabindex="-1" autocomplete="off"></div>
+        <div>
+          {{f_nome}}
+          <input id="f-nome" name="nome" type="text" autocomplete="name" required maxlength="100">
+        </div>
+        <div>
+          {{f_email}}
+          <input id="f-email" name="email" type="email" autocomplete="email" required maxlength="150">
+        </div>
+        <div class="full">
+          {{f_assunto}}
+          <select id="f-assunto" name="assunto">
+            {{f_o1}}
+            {{f_o2}}
+            {{f_o3}}
+            {{f_o4}}
+            {{f_o5}}
+          </select>
+        </div>
+        <div class="full">
+          {{f_msg}}
+          <textarea id="f-msg" name="mensagem" required maxlength="4000"></textarea>
+        </div>
+        <button class="btn btn-ink" type="submit"{{f_btn}}
+        <p class="status" id="f-status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer id="contato">
+  <div class="wrap">
+    <div>
+      <h3>Iluminar Apps</h3>
+      <p>{{foot_p}}</p>
+    </div>
+    <div>
+      {{foot_contato}}
+      <p><a href="#fale">{{foot_link}}</a></p>
+    </div>
+    <div>
+      {{foot_priv}}
+      <p><a href="https://eduardo7321.github.io/orbita-{{foot_orbita}}</p>
+      <p><a href="https://eduardo7321.github.io/laboratorio-de-fotons-{{foot_fotons}}</p>
+      <p><a href="https://github.com/eduardo7321/harpa-crista-app/blob/main/PRIVACY.md">Harpa Cristã</a></p>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var form = document.getElementById("form-contato");
+  var status = document.getElementById("f-status");
+  var button = form.querySelector("button");
+  form.addEventListener("submit", function (ev) {
+    ev.preventDefault();
+    if (form.botcheck.checked) return;
+    var data = new FormData(form);
+    data.set("subject", {{js_assunto}} + form.assunto.value + " (" + form.nome.value + ")");
+    button.disabled = true;
+    status.className = "status";
+    status.textContent = {{js_enviando}};
+    fetch(form.action, { method: "POST", headers: { Accept: "application/json" }, body: data })
+      .then(function (r) { return r.json(); })
+      .then(function (res) {
+        if (!res.success) throw new Error(res.message || "falha");
+        form.reset();
+        status.className = "status ok";
+        status.textContent = {{js_ok}};
+      })
+      .catch(function () {
+        status.className = "status err";
+        status.textContent = {{js_err}};
+      })
+      .finally(function () { button.disabled = false; });
+  });
+})();
+</script>
+</body>
+</html>

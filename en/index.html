@@ -1,0 +1,479 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- A marca aparece em poucos lugares de proposito: title, og:site_name, o
+     cabecalho e o rodape. Para trocar o nome, procure "Iluminar Apps". -->
+<title>Iluminar Apps — games for learning</title>
+<meta name="description" content="Android games that really teach: Orbita (orbital mechanics), Photon Lab (quantum physics) and Periodic Lab (chemistry).">
+<meta property="og:site_name" content="Iluminar Apps">
+<meta property="og:title" content="Iluminar Apps — games for learning">
+<meta property="og:description" content="Android games that really teach. For students, teachers and the curious.">
+<meta property="og:image" content="https://eduardo7321.github.io/img/orbita-destaque.jpg">
+<link rel="alternate" hreflang="pt-BR" href="https://eduardo7321.github.io/">
+<link rel="alternate" hreflang="en" href="https://eduardo7321.github.io/en/">
+<link rel="alternate" hreflang="x-default" href="https://eduardo7321.github.io/en/">
+<script>
+// Escolha de idioma do site. Sem servico externo: usa a escolha guardada
+// (botao PT | EN) ou, na primeira visita, o idioma do aparelho.
+function lerSalvo(storage) {
+  try { var v = storage.getItem("idioma"); return v === "pt" || v === "en" ? v : null; }
+  catch (e) { return null; }
+}
+// Devolve o caminho para onde ir, ou null para ficar.
+function escolherIdioma(langs, salvo, caminho) {
+  var emEn = /\/en\/(index\.html)?$/.test(caminho);
+  if (salvo === "en") return emEn ? null : "/en/";
+  if (salvo === "pt") return emEn ? "/" : null;
+  // Quem chegou por um link para /en/ fica em ingles.
+  if (emEn) return null;
+  var primeiro = (langs && langs[0]) ? String(langs[0]).toLowerCase() : "";
+  return primeiro.indexOf("pt") === 0 ? null : "/en/";
+}
+if (typeof window !== "undefined" && location.protocol !== "file:" &&
+    !/bot|crawl|spider|slurp/i.test(navigator.userAgent)) {
+  var _destino = escolherIdioma(navigator.languages || [navigator.language], lerSalvo(window.localStorage), location.pathname);
+  if (_destino) location.replace(_destino + location.hash);
+}
+function guardarIdioma(v) { try { localStorage.setItem("idioma", v); } catch (e) {} }
+</script>
+<link rel="icon" href="../favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #f6f8fc;
+    --ink: #14213d;
+    --ink-soft: #4a5875;
+    --line: #d9e0ec;
+    --gold: #ffcf5a;
+    --gold-ink: #8a5a00;
+    /* cada jogo tem o seu mundo */
+    --orbita-bg: #120f2e;
+    --orbita-text: #ece9ff;
+    --orbita-soft: #b3acd9;
+    --fotons-bg: #10161f;
+    --fotons-text: #eaf2f8;
+    --fotons-soft: #9fb1c2;
+    --periodico-bg: #0e2a28;
+    --periodico-text: #e6f6f2;
+    --periodico-soft: #9cc7bd;
+    --display: "Bricolage Grotesque", system-ui, sans-serif;
+    --body: "Atkinson Hyperlegible", system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  body { margin: 0; background: var(--paper); color: var(--ink); font: 18px/1.6 var(--body); }
+  img { display: block; max-width: 100%; height: auto; }
+  a { color: inherit; }
+  a:focus-visible, .btn:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; border-radius: 6px; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+  h1, h2, h3 { font-family: var(--display); line-height: 1.08; margin: 0; }
+
+  /* cabecalho */
+  .top { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 18px 0; }
+  .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; font-family: var(--display); font-weight: 800; font-size: 1.2rem; }
+  .brand img { width: 40px; height: 40px; border-radius: 50%; }
+  .top nav { display: flex; gap: 22px; font-size: 0.98rem; }
+  .top nav a { text-decoration: none; color: var(--ink-soft); }
+  .top nav a:hover { color: var(--ink); text-decoration: underline; }
+
+  /* idioma */
+  .lang { display: flex; gap: 4px; font-size: 0.95rem; font-weight: 700; }
+  .lang a { padding: 6px 12px; border-radius: 999px; text-decoration: none; color: var(--ink-soft); }
+  .lang a:hover { color: var(--ink); background: var(--line); }
+  .lang a[aria-current] { background: var(--ink); color: #fff; }
+  video.feature { display: block; width: 100%; height: auto; background: #000; }
+
+  /* abertura */
+  .hero { display: grid; grid-template-columns: 1.05fr 1fr; gap: 40px; align-items: center; padding: 40px 0 72px; }
+  .hero h1 { font-size: clamp(2.6rem, 6vw, 4.6rem); font-weight: 800; letter-spacing: -0.02em; }
+  .hero p { font-size: 1.2rem; color: var(--ink-soft); max-width: 34ch; margin: 22px 0 30px; }
+  .phones { position: relative; height: 470px; }
+  .phones img { position: absolute; width: 210px; border-radius: 26px; border: 6px solid var(--ink); box-shadow: 0 24px 50px -20px rgba(20,33,61,.55); }
+  .phones .p1 { left: 4%; top: 30px; transform: rotate(-7deg); }
+  .phones .p2 { left: 36%; top: 0; z-index: 2; }
+  .phones .p3 { right: 0; top: 46px; transform: rotate(6deg); }
+
+  .btn { display: inline-flex; align-items: center; gap: 10px; padding: 14px 22px; border-radius: 999px; font-weight: 700; text-decoration: none; font-size: 1rem; }
+  .btn-ink { background: var(--ink); color: #fff; }
+  .btn-ink:hover { background: #22325a; }
+  .btn-gold { background: var(--gold); color: #1d1500; }
+  .btn-gold:hover { background: #ffd977; }
+  .btn svg { width: 20px; height: 20px; }
+
+  /* jogos: cada um ocupa a largura inteira, no visual dele */
+  .game { padding: 80px 0; }
+  .game-head { display: grid; grid-template-columns: 96px 1fr; gap: 22px; align-items: center; margin-bottom: 30px; }
+  .game-head img { width: 96px; height: 96px; border-radius: 22px; }
+  .game h2 { font-size: clamp(2rem, 4.4vw, 3.2rem); font-weight: 800; letter-spacing: -0.015em; }
+  .game .en { margin: 6px 0 0; font-size: 1rem; }
+  .game-body { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px; align-items: start; }
+  .game-body > div > p:first-child { font-size: 1.15rem; margin-top: 0; }
+  .learn { margin: 18px 0 26px; padding: 0; list-style: none; }
+  .learn li { padding: 9px 0 9px 30px; position: relative; border-top: 1px solid rgba(255,255,255,.12); }
+  .learn li::before { content: ""; position: absolute; left: 4px; top: 19px; width: 10px; height: 10px; border-radius: 50%; background: var(--gold); }
+  .meta { font-size: 0.95rem; margin: 18px 0 0; }
+  .meta a { text-underline-offset: 3px; }
+  .feature { border-radius: 18px; overflow: hidden; }
+  .shots { display: flex; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 26px 0 6px; }
+  .shots img { scroll-snap-align: start; flex: 0 0 auto; border-radius: 14px; }
+
+  .orbita { background: var(--orbita-bg); color: var(--orbita-text); }
+  .orbita .en, .orbita .meta { color: var(--orbita-soft); }
+  .orbita .shots img { width: 170px; }
+
+  .fotons { background: var(--fotons-bg); color: var(--fotons-text); }
+  .fotons .en, .fotons .meta { color: var(--fotons-soft); }
+  .fotons .shots img { width: 300px; }
+  .soon { display: inline-block; padding: 13px 20px; border-radius: 999px; border: 2px dashed rgba(255,255,255,.35); font-weight: 700; }
+
+  .periodico { background: var(--periodico-bg); color: var(--periodico-text); }
+  .periodico .en, .periodico .meta { color: var(--periodico-soft); }
+  .periodico .feature { background: #cfeee6; padding: 18px; }
+  .shot-fig { margin: 0; }
+  .shot-fig figcaption { margin-top: 8px; font-size: 0.92rem; color: var(--periodico-soft); }
+  .periodico .shots figure { flex: 0 0 auto; width: 300px; margin: 0; scroll-snap-align: start; }
+  .periodico .shots img { width: 100%; }
+  .periodico .shots figcaption { margin-top: 8px; font-size: 0.9rem; line-height: 1.4; color: var(--periodico-soft); }
+  .cast { display: flex; gap: 6px; margin-top: 18px; }
+  .cast figure { margin: 0; flex: 1 1 0; text-align: center; font-size: 0.9rem; color: var(--periodico-soft); }
+  .cast img { margin: 0 auto 4px; width: 100%; max-width: 120px; }
+
+  /* professores */
+  .teach { padding: 84px 0; }
+  .teach h2 { font-size: clamp(1.9rem, 4vw, 2.8rem); font-weight: 800; max-width: 22ch; }
+  .teach-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 30px 48px; margin-top: 36px; max-width: 900px; }
+  .teach h3 { font-size: 1.2rem; font-weight: 600; margin-bottom: 8px; }
+  .teach p { margin: 0; color: var(--ink-soft); }
+
+  /* outros apps */
+  .others { padding: 0 0 84px; }
+  .others h2 { font-size: 1.5rem; font-weight: 600; margin-bottom: 18px; }
+  .harpa { display: grid; grid-template-columns: 88px 1fr auto; gap: 20px; align-items: center; padding: 22px; border: 1px solid var(--line); border-radius: 18px; background: #fff; }
+  .harpa img { width: 88px; height: 88px; border-radius: 20px; }
+  .harpa h3 { font-size: 1.3rem; font-weight: 600; }
+  .harpa p { margin: 4px 0 0; color: var(--ink-soft); font-size: 1rem; }
+  .harpa .links { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; font-size: 0.95rem; }
+
+  /* fale conosco */
+  .talk { padding: 0 0 84px; }
+  .talk-box { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 40px; padding: 36px; border: 1px solid var(--line); border-radius: 18px; background: #fff; }
+  .talk h2 { font-size: clamp(1.7rem, 3.5vw, 2.3rem); font-weight: 800; }
+  .talk-intro p { color: var(--ink-soft); margin: 14px 0 0; }
+  .talk form { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 18px; }
+  .talk .full { grid-column: 1 / -1; }
+  .talk label { display: block; font-weight: 700; font-size: 0.95rem; margin-bottom: 6px; }
+  .talk input, .talk select, .talk textarea { width: 100%; font: inherit; font-size: 1rem; color: var(--ink); background: var(--paper); border: 1px solid #b9c4d8; border-radius: 10px; padding: 11px 13px; }
+  .talk textarea { min-height: 140px; resize: vertical; }
+  .talk input:focus-visible, .talk select:focus-visible, .talk textarea:focus-visible { outline: 3px solid var(--gold); outline-offset: 1px; border-color: var(--ink); }
+  .talk button { border: 0; cursor: pointer; font-family: inherit; justify-self: start; }
+  .talk button[disabled] { opacity: 0.6; cursor: wait; }
+  .talk .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  .talk .status { margin: 0; align-self: center; font-weight: 700; }
+  .talk .status.ok { color: #1d6b3a; }
+  .talk .status.err { color: #a12a2a; }
+
+  /* rodape */
+  footer { background: var(--ink); color: #cfd7e6; padding: 48px 0; font-size: 0.98rem; }
+  footer .wrap { display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 30px; }
+  footer h3 { color: #fff; font-size: 1.05rem; font-weight: 600; margin-bottom: 10px; }
+  footer p { margin: 0 0 6px; }
+  footer a { color: #fff; text-underline-offset: 3px; }
+
+  @media (max-width: 860px) {
+    .hero { grid-template-columns: 1fr; padding-top: 16px; }
+    .phones { height: 380px; max-width: 460px; }
+    .phones img { width: 170px; }
+    .game-body { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+    .teach-grid { grid-template-columns: 1fr; gap: 22px; }
+    footer .wrap { grid-template-columns: 1fr; }
+    .talk-box { grid-template-columns: 1fr; gap: 24px; padding: 24px; }
+  }
+  @media (max-width: 560px) {
+    body { font-size: 17px; }
+    .wrap { padding-left: 16px; padding-right: 16px; }
+    .talk form { grid-template-columns: 1fr; }
+    .talk-box { padding: 20px 16px; }
+    .top nav { display: none; }
+    .phones { height: 300px; }
+    .phones img { width: 128px; border-width: 4px; border-radius: 18px; }
+    .game { padding: 56px 0; }
+    .game-head { grid-template-columns: 64px 1fr; gap: 14px; }
+    .game-head img { width: 64px; height: 64px; border-radius: 15px; }
+    .orbita .shots img { width: 140px; }
+    .fotons .shots img { width: 250px; }
+    .periodico .shots figure { width: 250px; }
+    .harpa { grid-template-columns: 64px 1fr; }
+    .harpa img { width: 64px; height: 64px; }
+    .harpa .links { grid-column: 1 / -1; flex-direction: row; justify-content: flex-start; flex-wrap: wrap; gap: 14px; align-items: center; }
+  }
+</style>
+</head>
+<body>
+
+<header class="wrap top">
+  <a class="brand" href="./"><img src="../img/marca-simbolo.png" alt="">Iluminar Apps</a>
+  <nav aria-label="Sections">
+    <a href="#jogos">Games</a>
+    <a href="#professores">For teachers</a>
+    <a href="#fale">Contact</a>
+  </nav>
+  <div class="lang" role="group" aria-label="Idioma / Language"><a href="../" hreflang="pt" lang="pt" onclick="guardarIdioma('pt')">PT</a><a href="../en/" hreflang="en" lang="en" aria-current="true" onclick="guardarIdioma('en')">EN</a></div>
+</header>
+
+<main>
+  <section class="wrap hero">
+    <div>
+      <h1>Games that really teach.</h1>
+      <p>Fly a rocket through Earth's real gravity. Guide light through mirrors and watch quantum physics happen. Combine chemical elements to defeat the Rust. For students, teachers and the curious.</p>
+      <a class="btn btn-ink" href="#jogos">See the games</a>
+    </div>
+    <div class="phones" aria-hidden="true">
+      <img class="p1" src="../img/orbita-tela-7-marte.jpg" alt="" width="360" height="640">
+      <img class="p2" src="../img/orbita-tela-4-voo.jpg" alt="" width="360" height="640">
+      <img class="p3" src="../img/orbita-tela-5-dica.jpg" alt="" width="360" height="640">
+    </div>
+  </section>
+
+  <div id="jogos">
+    <section class="game orbita" aria-labelledby="t-orbita">
+      <div class="wrap">
+        <div class="game-head">
+          <img src="../img/orbita-icone.png" alt="" width="192" height="192">
+          <div>
+            <h2 id="t-orbita">Orbita: Orbital Mechanics</h2>
+            <p class="en">Fly a rocket and discover how orbits really work.</p>
+          </div>
+        </div>
+        <div class="game-body">
+          <div>
+            <p>You control the engine and the direction of a rocket that obeys Earth's real gravity. No rails: the trajectory line shows, live, where it is going.</p>
+            <ul class="learn">
+              <li>Why an orbit is a fall that never reaches the ground</li>
+              <li>Apogee, perigee and escape velocity</li>
+              <li>A Moon rendezvous and a trip to Mars with the Hohmann transfer</li>
+              <li>23 stages, from training to an expedition across the solar system</li>
+            </ul>
+            <a class="btn btn-gold" href="https://play.google.com/store/apps/details?id=com.eduardo.orbita">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 2.8v18.4c0 .5.5.8 1 .6l15.6-8.9c.5-.3.5-1 0-1.3L5 2.2c-.5-.2-1 .1-1 .6Z"/></svg>
+              Get it free on Google Play
+            </a>
+            <p class="meta">Android · English and Portuguese · ages 13+ · <a href="https://eduardo7321.github.io/orbita-privacidade/">privacy policy</a></p>
+          </div>
+          <div>
+            <video class="feature" controls preload="none" playsinline width="1920" height="1080" poster="../video/poster-en-16x9.jpg" aria-label="Orbita video, 52 seconds"><source src="../video/orbita-en-16x9.mp4" type="video/mp4"></video>
+            <div class="shots" tabindex="0" aria-label="Orbita screenshots">
+              <img src="../img/orbita-tela-4-voo.jpg" alt="Rocket in flight with its predicted trajectory" width="360" height="640" loading="lazy">
+              <img src="../img/orbita-tela-5-dica.jpg" alt="Animated hint showing the right maneuver" width="360" height="640" loading="lazy">
+              <img src="../img/orbita-tela-7-marte.jpg" alt="Orbit around Mars" width="360" height="640" loading="lazy">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="game fotons" aria-labelledby="t-fotons">
+      <div class="wrap">
+        <div class="game-head">
+          <img src="../img/fotons-icone.png" alt="" width="192" height="192">
+          <div>
+            <h2 id="t-fotons">Photon Lab: Quantum Puzzles</h2>
+            <p class="en">Mirror-and-light puzzles that teach real quantum physics.</p>
+          </div>
+        </div>
+        <div class="game-body">
+          <div>
+            <p>Drag mirrors, beam splitters, filters and detectors, and fire photons one at a time. The rules are a real quantum simulation: you see the phenomenon before you read the explanation.</p>
+            <ul class="learn">
+              <li>A photon that takes two paths at once</li>
+              <li>Interference, measurement and the bomb found without touching it</li>
+              <li>Tunneling and entangled twin photons</li>
+              <li>42 levels in 9 chapters, no formulas, ages 8+</li>
+            </ul>
+            <span class="soon">Coming soon to Google Play</span>
+            <p class="meta">Android · English and Portuguese · <a href="https://eduardo7321.github.io/laboratorio-de-fotons-privacidade/">privacy policy</a></p>
+          </div>
+          <div>
+            <img class="feature" src="../img/fotons-destaque.jpg" alt="Photon Lab: a beam of light travelling through mirrors" width="1024" height="500" loading="lazy">
+            <div class="shots" tabindex="0" aria-label="Photon Lab screenshots">
+              <img src="../img/fotons-tela-3-interferencia.jpg" alt="Interference puzzle" width="720" height="405" loading="lazy">
+              <img src="../img/fotons-tela-4-bomba.jpg" alt="Bomb-tester puzzle" width="720" height="405" loading="lazy">
+              <img src="../img/fotons-tela-6-desafio.jpg" alt="Challenge with many mirrors" width="720" height="405" loading="lazy">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="game periodico" aria-labelledby="t-periodico">
+      <div class="wrap">
+        <div class="game-head">
+          <img src="../img/periodico-icone.png" alt="" width="192" height="192">
+          <div>
+            <h2 id="t-periodico">Laboratório Periódico</h2>
+            <p class="en">A chemistry RPG where the heroes are elements of the periodic table. Portuguese only.</p>
+          </div>
+        </div>
+        <div class="game-body">
+          <div>
+            <p>Build a team of three elements and face villains like the Rust in turn-based battles. To attack, combine two heroes: if the reaction really exists, it happens on screen with the real, balanced equation. If the combination has no source yet, the game says so instead of inventing chemistry.</p>
+            <ul class="learn">
+              <li>40 real chemical reactions, each with a recorded source (IUPAC, PubChem, NIST and general chemistry textbooks)</li>
+              <li>The periodic table is the team-selection screen: group, period and atomic number show up as you play</li>
+              <li>Real properties become strategy: aluminum protects itself with a layer of alumina, and chromium and nickel resist corrosion</li>
+              <li>4 islands and 20 levels: Metals, Salts, Acids and Bases, and Alloys, with a boss at the end of each island</li>
+            </ul>
+            <span class="soon">Coming soon to Google Play</span>
+            <p class="meta">Android · Portuguese only · ages 13+</p>
+          </div>
+          <div>
+            <figure class="shot-fig">
+              <img class="feature" src="../img/periodico-mapa.png" alt="" width="1024" height="569" loading="lazy">
+              <figcaption>Map of the Metal Continent, with a mine, a castle and a harbor</figcaption>
+            </figure>
+            <div class="shots" tabindex="0" aria-label="Laboratório Periódico screenshots">
+              <figure><img src="../img/periodico-escolha_time.jpg" alt="" width="720" height="405" loading="lazy"><figcaption>Choosing the team on the periodic table</figcaption></figure>
+              <figure><img src="../img/periodico-golpe_anunciado.jpg" alt="" width="720" height="405" loading="lazy"><figcaption>Battle: the villain announces its move and you decide whether to dodge</figcaption></figure>
+              <figure><img src="../img/periodico-caderno.jpg" alt="" width="720" height="405" loading="lazy"><figcaption>Notebook of discovered reactions</figcaption></figure>
+            </div>
+            <div class="cast">
+              <figure><img src="../img/periodico-h.png" alt="" width="220" height="220" loading="lazy">Hydrogen</figure>
+              <figure><img src="../img/periodico-na.png" alt="" width="220" height="220" loading="lazy">Sodium</figure>
+              <figure><img src="../img/periodico-cl.png" alt="" width="220" height="220" loading="lazy">Chlorine</figure>
+              <figure><img src="../img/periodico-ferrugem.png" alt="" width="220" height="220" loading="lazy">Rust</figure>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <section class="wrap teach" id="professores" aria-labelledby="t-teach">
+    <h2 id="t-teach">Made for the classroom, too.</h2>
+    <div class="teach-grid">
+      <div>
+        <h3>Real science</h3>
+        <p>The games use real laws, values and reactions. Where something is simplified to fit the game, the game itself says so, without pretending.</p>
+      </div>
+      <div>
+        <h3>No sign-up, no purchases</h3>
+        <p>Just install and play. Progress stays on the student's device; no account data is requested.</p>
+      </div>
+      <div>
+        <h3>Works offline</h3>
+        <p>Everything runs without internet. Some games show an ad now and then, always between levels and never in the middle of play. Laboratório Periódico has no ads.</p>
+      </div>
+      <div>
+        <h3>Safe for school</h3>
+        <p>The games explain the phenomenon but never teach lab procedures. Dangerous reactions come with a warning.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap others" aria-labelledby="t-others">
+    <h2 id="t-others">Other apps</h2>
+    <div class="harpa">
+      <img src="../img/harpa-icone.png" alt="" width="192" height="192">
+      <div>
+        <h3>Harpa Cristã</h3>
+        <p>The 640 hymns of the Harpa Cristã (a Brazilian Christian hymnal), with lyrics search, lists and dark mode. No ads and fully offline. Portuguese only.</p>
+      </div>
+      <div class="links">
+        <a class="btn btn-ink" href="https://play.google.com/store/apps/details?id=com.eduardo.harpacrista">Get it on Google Play</a>
+        <a href="https://github.com/eduardo7321/harpa-crista-app/blob/main/PRIVACY.md">Privacy policy</a>
+      </div>
+    </div>
+  </section>
+  <section class="wrap talk" id="fale" aria-labelledby="t-talk">
+    <div class="talk-box">
+      <div class="talk-intro">
+        <h2 id="t-talk">Talk to us</h2>
+        <p>Questions, suggestions, a bug you found in a game or an idea for using it in class. We reply to the email you give us.</p>
+      </div>
+      <form id="form-contato" action="https://api.web3forms.com/submit" method="POST">
+        <input type="hidden" name="access_key" value="05b9c1f4-1745-42df-a26c-b01f97ce2084">
+        <input type="hidden" name="from_name" value="Site Iluminar Apps">
+        <input type="hidden" name="subject" value="Nova mensagem pelo site">
+        <div class="hp" aria-hidden="true"><label for="f-botcheck">Leave this empty</label><input type="checkbox" id="f-botcheck" name="botcheck" tabindex="-1" autocomplete="off"></div>
+        <div>
+          <label for="f-nome">Name</label>
+          <input id="f-nome" name="nome" type="text" autocomplete="name" required maxlength="100">
+        </div>
+        <div>
+          <label for="f-email">Email</label>
+          <input id="f-email" name="email" type="email" autocomplete="email" required maxlength="150">
+        </div>
+        <div class="full">
+          <label for="f-assunto">Subject</label>
+          <select id="f-assunto" name="assunto">
+            <option value="Dúvida">Question</option>
+            <option value="Sugestão">Suggestion</option>
+            <option value="Encontrei um erro">I found a bug</option>
+            <option value="Sou professor(a)">I'm a teacher</option>
+            <option value="Outro">Other</option>
+          </select>
+        </div>
+        <div class="full">
+          <label for="f-msg">Message</label>
+          <textarea id="f-msg" name="mensagem" required maxlength="4000"></textarea>
+        </div>
+        <button class="btn btn-ink" type="submit">Send message</button>
+        <p class="status" id="f-status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer id="contato">
+  <div class="wrap">
+    <div>
+      <h3>Iluminar Apps</h3>
+      <p>Games for learning, made in Brazil by Eduardo Silva.</p>
+    </div>
+    <div>
+      <h3>Contact</h3>
+      <p><a href="#fale">Send us a message through the form</a></p>
+    </div>
+    <div>
+      <h3>Privacy</h3>
+      <p><a href="https://eduardo7321.github.io/orbita-privacidade/">Orbita</a></p>
+      <p><a href="https://eduardo7321.github.io/laboratorio-de-fotons-privacidade/">Photon Lab</a></p>
+      <p><a href="https://github.com/eduardo7321/harpa-crista-app/blob/main/PRIVACY.md">Harpa Cristã</a></p>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var form = document.getElementById("form-contato");
+  var status = document.getElementById("f-status");
+  var button = form.querySelector("button");
+  form.addEventListener("submit", function (ev) {
+    ev.preventDefault();
+    if (form.botcheck.checked) return;
+    var data = new FormData(form);
+    data.set("subject", "Site (EN): " + form.assunto.value + " (" + form.nome.value + ")");
+    button.disabled = true;
+    status.className = "status";
+    status.textContent = "Sending...";
+    fetch(form.action, { method: "POST", headers: { Accept: "application/json" }, body: data })
+      .then(function (r) { return r.json(); })
+      .then(function (res) {
+        if (!res.success) throw new Error(res.message || "falha");
+        form.reset();
+        status.className = "status ok";
+        status.textContent = "Message sent. We'll reply to your email.";
+      })
+      .catch(function () {
+        status.className = "status err";
+        status.textContent = "The message was not sent. Check your connection and try again.";
+      })
+      .finally(function () { button.disabled = false; });
+  });
+})();
+</script>
+</body>
+</html>

@@ -11,6 +11,33 @@
 <meta property="og:title" content="Iluminar Apps — jogos para aprender">
 <meta property="og:description" content="Jogos para Android que ensinam de verdade. Para estudantes, professores e curiosos.">
 <meta property="og:image" content="https://eduardo7321.github.io/img/orbita-destaque.jpg">
+<link rel="alternate" hreflang="pt-BR" href="https://eduardo7321.github.io/">
+<link rel="alternate" hreflang="en" href="https://eduardo7321.github.io/en/">
+<link rel="alternate" hreflang="x-default" href="https://eduardo7321.github.io/en/">
+<script>
+// Escolha de idioma do site. Sem servico externo: usa a escolha guardada
+// (botao PT | EN) ou, na primeira visita, o idioma do aparelho.
+function lerSalvo(storage) {
+  try { var v = storage.getItem("idioma"); return v === "pt" || v === "en" ? v : null; }
+  catch (e) { return null; }
+}
+// Devolve o caminho para onde ir, ou null para ficar.
+function escolherIdioma(langs, salvo, caminho) {
+  var emEn = /\/en\/(index\.html)?$/.test(caminho);
+  if (salvo === "en") return emEn ? null : "/en/";
+  if (salvo === "pt") return emEn ? "/" : null;
+  // Quem chegou por um link para /en/ fica em ingles.
+  if (emEn) return null;
+  var primeiro = (langs && langs[0]) ? String(langs[0]).toLowerCase() : "";
+  return primeiro.indexOf("pt") === 0 ? null : "/en/";
+}
+if (typeof window !== "undefined" && location.protocol !== "file:" &&
+    !/bot|crawl|spider|slurp/i.test(navigator.userAgent)) {
+  var _destino = escolherIdioma(navigator.languages || [navigator.language], lerSalvo(window.localStorage), location.pathname);
+  if (_destino) location.replace(_destino + location.hash);
+}
+function guardarIdioma(v) { try { localStorage.setItem("idioma", v); } catch (e) {} }
+</script>
 <link rel="icon" href="favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -53,6 +80,13 @@
   .top nav { display: flex; gap: 22px; font-size: 0.98rem; }
   .top nav a { text-decoration: none; color: var(--ink-soft); }
   .top nav a:hover { color: var(--ink); text-decoration: underline; }
+
+  /* idioma */
+  .lang { display: flex; gap: 4px; font-size: 0.95rem; font-weight: 700; }
+  .lang a { padding: 6px 12px; border-radius: 999px; text-decoration: none; color: var(--ink-soft); }
+  .lang a:hover { color: var(--ink); background: var(--line); }
+  .lang a[aria-current] { background: var(--ink); color: #fff; }
+  video.feature { display: block; width: 100%; height: auto; background: #000; }
 
   /* abertura */
   .hero { display: grid; grid-template-columns: 1.05fr 1fr; gap: 40px; align-items: center; padding: 40px 0 72px; }
@@ -182,12 +216,13 @@
 <body>
 
 <header class="wrap top">
-  <a class="brand" href="#"><img src="img/marca-simbolo.png" alt="">Iluminar Apps</a>
+  <a class="brand" href="./"><img src="img/marca-simbolo.png" alt="">Iluminar Apps</a>
   <nav aria-label="Seções">
     <a href="#jogos">Jogos</a>
     <a href="#professores">Para professores</a>
     <a href="#fale">Contato</a>
   </nav>
+  <div class="lang" role="group" aria-label="Idioma / Language"><a href="./" hreflang="pt" lang="pt" aria-current="true" onclick="guardarIdioma('pt')">PT</a><a href="en/" hreflang="en" lang="en" onclick="guardarIdioma('en')">EN</a></div>
 </header>
 
 <main>
@@ -230,7 +265,7 @@
             <p class="meta">Android · português e inglês · a partir de 13 anos · <a href="https://eduardo7321.github.io/orbita-privacidade/">política de privacidade</a></p>
           </div>
           <div>
-            <img class="feature" src="img/orbita-destaque.jpg" alt="Órbita: um foguete decolando da Terra" width="1024" height="500">
+            <video class="feature" controls preload="none" playsinline width="1920" height="1080" poster="video/poster-pt-16x9.jpg" aria-label="Vídeo do Órbita, 54 segundos"><source src="video/orbita-pt-16x9.mp4" type="video/mp4"></video>
             <div class="shots" tabindex="0" aria-label="Telas do Órbita">
               <img src="img/orbita-tela-4-voo.jpg" alt="Foguete em voo com a trajetória prevista" width="360" height="640" loading="lazy">
               <img src="img/orbita-tela-5-dica.jpg" alt="Dica animada mostrando a manobra certa" width="360" height="640" loading="lazy">
