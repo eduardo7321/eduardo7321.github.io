@@ -13,7 +13,7 @@ RAIZ = SRC.parent
 URL = "https://eduardo7321.github.io/"
 # codigo: (pasta de saida, rotulo do botao)
 IDIOMAS = {"pt": ("", "PT"), "en": ("en/", "EN")}
-VIDEO_LABEL = {"pt": "Vídeo do Órbita, 54 segundos", "en": "Orbita video, 52 seconds"}
+VIDEO_LABEL = {"pt": "Vídeo do Órbita, 51 segundos", "en": "Orbita video, 52 seconds"}
 
 
 def _extras(lang, raiz):
