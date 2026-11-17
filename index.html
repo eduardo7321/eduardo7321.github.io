@@ -125,6 +125,24 @@
   .harpa p { margin: 4px 0 0; color: var(--ink-soft); font-size: 1rem; }
   .harpa .links { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; font-size: 0.95rem; }
 
+  /* fale conosco */
+  .talk { padding: 0 0 84px; }
+  .talk-box { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 40px; padding: 36px; border: 1px solid var(--line); border-radius: 18px; background: #fff; }
+  .talk h2 { font-size: clamp(1.7rem, 3.5vw, 2.3rem); font-weight: 800; }
+  .talk-intro p { color: var(--ink-soft); margin: 14px 0 0; }
+  .talk form { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 18px; }
+  .talk .full { grid-column: 1 / -1; }
+  .talk label { display: block; font-weight: 700; font-size: 0.95rem; margin-bottom: 6px; }
+  .talk input, .talk select, .talk textarea { width: 100%; font: inherit; font-size: 1rem; color: var(--ink); background: var(--paper); border: 1px solid #b9c4d8; border-radius: 10px; padding: 11px 13px; }
+  .talk textarea { min-height: 140px; resize: vertical; }
+  .talk input:focus-visible, .talk select:focus-visible, .talk textarea:focus-visible { outline: 3px solid var(--gold); outline-offset: 1px; border-color: var(--ink); }
+  .talk button { border: 0; cursor: pointer; font-family: inherit; justify-self: start; }
+  .talk button[disabled] { opacity: 0.6; cursor: wait; }
+  .talk .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  .talk .status { margin: 0; align-self: center; font-weight: 700; }
+  .talk .status.ok { color: #1d6b3a; }
+  .talk .status.err { color: #a12a2a; }
+
   /* rodape */
   footer { background: var(--ink); color: #cfd7e6; padding: 48px 0; font-size: 0.98rem; }
   footer .wrap { display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 30px; }
@@ -139,10 +157,13 @@
     .game-body { grid-template-columns: minmax(0, 1fr); gap: 28px; }
     .teach-grid { grid-template-columns: 1fr; gap: 22px; }
     footer .wrap { grid-template-columns: 1fr; }
+    .talk-box { grid-template-columns: 1fr; gap: 24px; padding: 24px; }
   }
   @media (max-width: 560px) {
     body { font-size: 17px; }
     .wrap { padding-left: 16px; padding-right: 16px; }
+    .talk form { grid-template-columns: 1fr; }
+    .talk-box { padding: 20px 16px; }
     .top nav { display: none; }
     .phones { height: 300px; }
     .phones img { width: 128px; border-width: 4px; border-radius: 18px; }
@@ -165,7 +186,7 @@
   <nav aria-label="Seções">
     <a href="#jogos">Jogos</a>
     <a href="#professores">Para professores</a>
-    <a href="#contato">Contato</a>
+    <a href="#fale">Contato</a>
   </nav>
 </header>
 
@@ -331,6 +352,44 @@
       </div>
     </div>
   </section>
+  <section class="wrap talk" id="fale" aria-labelledby="t-talk">
+    <div class="talk-box">
+      <div class="talk-intro">
+        <h2 id="t-talk">Fale com a gente</h2>
+        <p>Dúvidas, sugestões, um erro que você encontrou num jogo ou uma ideia para usar em aula. A resposta chega no e-mail que você informar.</p>
+      </div>
+      <form id="form-contato" action="https://api.web3forms.com/submit" method="POST">
+        <input type="hidden" name="access_key" value="05b9c1f4-1745-42df-a26c-b01f97ce2084">
+        <input type="hidden" name="from_name" value="Site Iluminar Apps">
+        <input type="hidden" name="subject" value="Nova mensagem pelo site">
+        <div class="hp" aria-hidden="true"><label for="f-botcheck">Não preencha</label><input type="checkbox" id="f-botcheck" name="botcheck" tabindex="-1" autocomplete="off"></div>
+        <div>
+          <label for="f-nome">Nome</label>
+          <input id="f-nome" name="nome" type="text" autocomplete="name" required maxlength="100">
+        </div>
+        <div>
+          <label for="f-email">E-mail</label>
+          <input id="f-email" name="email" type="email" autocomplete="email" required maxlength="150">
+        </div>
+        <div class="full">
+          <label for="f-assunto">Assunto</label>
+          <select id="f-assunto" name="assunto">
+            <option>Dúvida</option>
+            <option>Sugestão</option>
+            <option>Encontrei um erro</option>
+            <option>Sou professor(a)</option>
+            <option>Outro</option>
+          </select>
+        </div>
+        <div class="full">
+          <label for="f-msg">Mensagem</label>
+          <textarea id="f-msg" name="mensagem" required maxlength="4000"></textarea>
+        </div>
+        <button class="btn btn-ink" type="submit">Enviar mensagem</button>
+        <p class="status" id="f-status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
 </main>
 
 <footer id="contato">
@@ -341,7 +400,7 @@
     </div>
     <div>
       <h3>Contato</h3>
-      <p><a href="mailto:eduardo.jose184@gmail.com">eduardo.jose184@gmail.com</a></p>
+      <p><a href="#fale">Mande uma mensagem pelo formulário</a></p>
     </div>
     <div>
       <h3>Privacidade</h3>
@@ -352,5 +411,34 @@
   </div>
 </footer>
 
+<script>
+(function () {
+  var form = document.getElementById("form-contato");
+  var status = document.getElementById("f-status");
+  var button = form.querySelector("button");
+  form.addEventListener("submit", function (ev) {
+    ev.preventDefault();
+    if (form.botcheck.checked) return;
+    var data = new FormData(form);
+    data.set("subject", "Site: " + form.assunto.value + " (" + form.nome.value + ")");
+    button.disabled = true;
+    status.className = "status";
+    status.textContent = "Enviando...";
+    fetch(form.action, { method: "POST", headers: { Accept: "application/json" }, body: data })
+      .then(function (r) { return r.json(); })
+      .then(function (res) {
+        if (!res.success) throw new Error(res.message || "falha");
+        form.reset();
+        status.className = "status ok";
+        status.textContent = "Mensagem enviada. Respondemos no seu e-mail.";
+      })
+      .catch(function () {
+        status.className = "status err";
+        status.textContent = "A mensagem não foi enviada. Confira a internet e tente de novo.";
+      })
+      .finally(function () { button.disabled = false; });
+  });
+})();
+</script>
 </body>
 </html>
