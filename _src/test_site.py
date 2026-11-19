@@ -33,6 +33,16 @@ class Site(unittest.TestCase):
         self.assertIn("orbita-en-16x9.mp4", self.en)
         self.assertNotIn("Jogos que ensinam", self.en)
 
+    def test_video_fotons(self):
+        for lang, html in (("pt", self.pt), ("en", self.en)):
+            fotons = html[html.index('class="game fotons"'):]
+            fotons = fotons[:fotons.index("</section>")]
+            self.assertIn(f"video/laboratorio-de-fotons-{lang}-16x9.mp4", fotons)
+            self.assertIn(f"video/poster-fotons-{lang}-16x9.jpg", fotons)
+            self.assertLess(fotons.index("<video"), fotons.index('class="shots"'))
+        self.assertIn('aria-label="Vídeo do Laboratório de Fótons, 1 minuto e 32 segundos"', self.pt)
+        self.assertIn('aria-label="Photon Lab video, 1 minute and 30 seconds"', self.en)
+
     def test_hreflang(self):
         for html in (self.pt, self.en):
             self.assertIn('hreflang="pt-BR" href="https://eduardo7321.github.io/"', html)
