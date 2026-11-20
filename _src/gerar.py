@@ -94,7 +94,9 @@ def _extras(lang, raiz):
                     FOTONS_LABEL[lang])
     harpa = _video(raiz, f"poster-harpa-{lang}-16x9.jpg", f"harpa-crista-{lang}-16x9.mp4", HARPA_LABEL[lang])
     return {"cabeca_idioma": cabeca, "troca_idioma": troca, "orbita_video": video, "fotons_video": fotons,
-            "harpa_video": harpa, "apoio": _apoio(lang, raiz)}
+            "harpa_video": harpa, "apoio": _apoio(lang, raiz),
+            # Link do menu para a secao de doacao: so onde ela existe.
+            "nav_apoie": '<a href="#apoie">Apoie</a>' if lang == "pt" else ""}
 
 
 def main():

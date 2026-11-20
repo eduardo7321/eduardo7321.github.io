@@ -64,6 +64,9 @@ class Site(unittest.TestCase):
         self.assertIn('src="img/pix-qr.svg"', apoio)
         self.assertIn("Copiar código Pix", apoio)
         self.assertTrue((RAIZ / "img/pix-qr.svg").exists())
+        nav = self.pt[self.pt.index("<nav"):self.pt.index("</nav>")]
+        self.assertLess(nav.index('href="#fale"'), nav.index('<a href="#apoie">Apoie</a>'))
+        self.assertNotIn('href="#apoie"', self.en)
         # Ingles: ainda sem doacao (Ko-fi vem depois).
         self.assertNotIn('id="apoie"', self.en)
         self.assertNotIn("BR.GOV.BCB.PIX", self.en)
