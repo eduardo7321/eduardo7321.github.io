@@ -38,10 +38,25 @@ def crc_pix(dados):
     return "%04X" % c
 
 
+KOFI = "https://ko-fi.com/iluminarapps"
+
+
 def _apoio(lang, raiz):
-    """Secao de doacao. So em portugues por enquanto (Pix); o ingles ganha Ko-fi depois."""
+    """Secao de doacao: Pix no portugues, Ko-fi no ingles (doacao de fora do Brasil)."""
     if lang != "pt":
-        return ""
+        return f"""<section class="wrap apoio" id="support" aria-labelledby="t-apoio">
+    <div class="apoio-box">
+      <div>
+        <h2 id="t-apoio">Support Iluminar Apps</h2>
+        <p>The apps are free and will stay that way. If they help you, your students or your church, a donation of any amount helps make the next ones.</p>
+        <p class="apoio-nota">Donations go through Ko-fi, by card, to Eduardo Jose Silva, the developer, in Brazil.</p>
+      </div>
+      <div class="kofi">
+        <a class="btn btn-gold" href="{KOFI}" target="_blank" rel="noopener">Support on Ko-fi</a>
+        <p>ko-fi.com/iluminarapps</p>
+      </div>
+    </div>
+  </section>"""
     return f"""<section class="wrap apoio" id="apoie" aria-labelledby="t-apoio">
     <div class="apoio-box">
       <div>
@@ -101,7 +116,7 @@ def _extras(lang, raiz):
     return {"cabeca_idioma": cabeca, "troca_idioma": troca, "orbita_video": video, "fotons_video": fotons,
             "harpa_video": harpa, "periodico_video": periodico, "apoio": _apoio(lang, raiz),
             # Link do menu para a secao de doacao: so onde ela existe.
-            "nav_apoie": '<a href="#apoie">Apoie</a>' if lang == "pt" else ""}
+            "nav_apoie": '<a href="#apoie">Apoie</a>' if lang == "pt" else '<a href="#support">Support</a>'}
 
 
 def main():

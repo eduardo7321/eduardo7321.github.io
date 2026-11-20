@@ -75,10 +75,18 @@ class Site(unittest.TestCase):
         self.assertTrue((RAIZ / "img/pix-qr.svg").exists())
         nav = self.pt[self.pt.index("<nav"):self.pt.index("</nav>")]
         self.assertLess(nav.index('href="#fale"'), nav.index('<a href="#apoie">Apoie</a>'))
-        self.assertNotIn('href="#apoie"', self.en)
-        # Ingles: ainda sem doacao (Ko-fi vem depois).
-        self.assertNotIn('id="apoie"', self.en)
         self.assertNotIn("BR.GOV.BCB.PIX", self.en)
+        self.assertNotIn("ko-fi.com", self.pt)   # no Brasil, so Pix
+
+    def test_apoio_kofi_no_ingles(self):
+        apoio = self.en[self.en.index('id="support"'):]
+        apoio = apoio[:apoio.index("</section>")]
+        self.assertIn('href="https://ko-fi.com/iluminarapps"', apoio)
+        self.assertIn("Support on Ko-fi", apoio)
+        self.assertIn('rel="noopener"', apoio)
+        nav = self.en[self.en.index("<nav"):self.en.index("</nav>")]
+        self.assertLess(nav.index('href="#fale"'),
+                        nav.index('<a href="#support">Support</a>'))
 
     def test_video_periodico(self):
         for lang, html in (("pt", self.pt), ("en", self.en)):
