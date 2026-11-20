@@ -52,6 +52,22 @@ class Site(unittest.TestCase):
         self.assertIn('aria-label="Vídeo da Harpa Cristã, 1 minuto e 25 segundos"', self.pt)
         self.assertIn('aria-label="Harpa Cristã video, 1 minute and 29 seconds"', self.en)
 
+    def test_apoio_pix(self):
+        import gerar
+        pix = gerar.PIX
+        self.assertTrue(pix.startswith("000201") and "BR.GOV.BCB.PIX" in pix)
+        self.assertEqual(gerar.crc_pix(pix[:-4]), pix[-4:])
+        self.assertNotIn("5406", pix.split("5303986")[1][:4])   # sem valor fixo
+        apoio = self.pt[self.pt.index('id="apoie"'):]
+        apoio = apoio[:apoio.index("</section>")]
+        self.assertIn(pix, apoio)
+        self.assertIn('src="img/pix-qr.svg"', apoio)
+        self.assertIn("Copiar código Pix", apoio)
+        self.assertTrue((RAIZ / "img/pix-qr.svg").exists())
+        # Ingles: ainda sem doacao (Ko-fi vem depois).
+        self.assertNotIn('id="apoie"', self.en)
+        self.assertNotIn("BR.GOV.BCB.PIX", self.en)
+
     def test_hreflang(self):
         for html in (self.pt, self.en):
             self.assertIn('hreflang="pt-BR" href="https://eduardo7321.github.io/"', html)

@@ -134,6 +134,19 @@
   .harpa .links { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; font-size: 0.95rem; }
   .harpa video.feature { grid-column: 1 / -1; border-radius: 12px; }
 
+  /* apoie */
+  .apoio { padding: 0 0 84px; }
+  .apoio-box { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px; align-items: center; padding: 36px; border: 1px solid var(--line); border-radius: 18px; background: #fff; }
+  .apoio h2 { font-size: clamp(1.7rem, 3.5vw, 2.3rem); font-weight: 800; }
+  .apoio p { color: var(--ink-soft); margin: 14px 0 0; max-width: 46ch; }
+  .apoio .apoio-nota { font-size: 0.95rem; }
+  .pix { display: grid; justify-items: center; gap: 10px; text-align: center; }
+  .pix img { width: 200px; height: 200px; }
+  .pix label { font-weight: 700; font-size: 0.95rem; margin-top: 4px; }
+  .pix input { width: 100%; max-width: 340px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 10px; font: 0.8rem/1.3 ui-monospace, monospace; color: var(--ink-soft); background: var(--paper); text-overflow: ellipsis; }
+  .pix button { border: 0; cursor: pointer; font-family: inherit; }
+  .pix-ok { min-height: 1.4em; margin: 0; font-size: 0.95rem; color: var(--ink); }
+
   /* fale conosco */
   .talk { padding: 0 0 84px; }
   .talk-box { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 40px; padding: 36px; border: 1px solid var(--line); border-radius: 18px; background: #fff; }
@@ -167,6 +180,7 @@
     .teach-grid { grid-template-columns: 1fr; gap: 22px; }
     footer .wrap { grid-template-columns: 1fr; }
     .talk-box { grid-template-columns: 1fr; gap: 24px; padding: 24px; }
+    .apoio-box { grid-template-columns: 1fr; gap: 24px; padding: 24px; }
   }
   @media (max-width: 560px) {
     body { font-size: 17px; }
@@ -363,6 +377,7 @@
       {{harpa_video}}
     </div>
   </section>
+  {{apoio}}
   <section class="wrap talk" id="fale" aria-labelledby="t-talk">
     <div class="talk-box">
       <div class="talk-intro">
