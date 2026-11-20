@@ -108,6 +108,7 @@
   .periodico { background: var(--periodico-bg); color: var(--periodico-text); }
   .periodico .en, .periodico .meta { color: var(--periodico-soft); }
   .periodico .feature { background: #cfeee6; padding: 18px; }
+  .periodico video.feature { background: #000; padding: 0; }
   .shot-fig { margin: 0; }
   .shot-fig figcaption { margin-top: 8px; font-size: 0.92rem; color: var(--periodico-soft); }
   .periodico .shots figure { flex: 0 0 auto; width: 300px; margin: 0; scroll-snap-align: start; }
@@ -320,10 +321,7 @@
             <p class="meta">{{per_meta}}</p>
           </div>
           <div>
-            <figure class="shot-fig">
-              <img class="feature" src="{{raiz}}img/periodico-mapa.png" alt="" width="1024" height="569" loading="lazy">
-              <figcaption>{{per_cap_mapa}}</figcaption>
-            </figure>
+            {{periodico_video}}
             <div class="shots" tabindex="0" {{per_shots}}>
               <figure><img src="{{raiz}}img/periodico-escolha_time.jpg" alt="" width="720" height="405" loading="lazy"><figcaption>{{per_cap1}}</figcaption></figure>
               <figure><img src="{{raiz}}img/periodico-golpe_anunciado.jpg" alt="" width="720" height="405" loading="lazy"><figcaption>{{per_cap2}}</figcaption></figure>

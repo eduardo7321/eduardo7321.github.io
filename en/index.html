@@ -144,6 +144,7 @@ if (typeof window !== "undefined" && location.protocol !== "file:" &&
   .periodico { background: var(--periodico-bg); color: var(--periodico-text); }
   .periodico .en, .periodico .meta { color: var(--periodico-soft); }
   .periodico .feature { background: #cfeee6; padding: 18px; }
+  .periodico video.feature { background: #000; padding: 0; }
   .shot-fig { margin: 0; }
   .shot-fig figcaption { margin-top: 8px; font-size: 0.92rem; color: var(--periodico-soft); }
   .periodico .shots figure { flex: 0 0 auto; width: 300px; margin: 0; scroll-snap-align: start; }
@@ -356,10 +357,7 @@ if (typeof window !== "undefined" && location.protocol !== "file:" &&
             <p class="meta">Android · Portuguese only · ages 13+</p>
           </div>
           <div>
-            <figure class="shot-fig">
-              <img class="feature" src="../img/periodico-mapa.png" alt="" width="1024" height="569" loading="lazy">
-              <figcaption>Map of the Metal Continent, with a mine, a castle and a harbor</figcaption>
-            </figure>
+            <video class="feature" controls preload="none" playsinline width="1920" height="1080" poster="../video/poster-periodico-en-16x9.jpg" aria-label="Laboratório Periódico video, 1 minute and 37 seconds"><source src="../video/laboratorio-periodico-en-16x9.mp4" type="video/mp4"></video>
             <div class="shots" tabindex="0" aria-label="Laboratório Periódico screenshots">
               <figure><img src="../img/periodico-escolha_time.jpg" alt="" width="720" height="405" loading="lazy"><figcaption>Choosing the team on the periodic table</figcaption></figure>
               <figure><img src="../img/periodico-golpe_anunciado.jpg" alt="" width="720" height="405" loading="lazy"><figcaption>Battle: the villain announces its move and you decide whether to dodge</figcaption></figure>

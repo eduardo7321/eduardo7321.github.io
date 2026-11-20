@@ -16,6 +16,9 @@ IDIOMAS = {"pt": ("", "PT"), "en": ("en/", "EN")}
 VIDEO_LABEL = {"pt": "Vídeo do Órbita, 1 minuto e 18 segundos", "en": "Orbita video, 52 seconds"}
 FOTONS_LABEL = {"pt": "Vídeo do Laboratório de Fótons, 1 minuto e 32 segundos",
                 "en": "Photon Lab video, 1 minute and 30 seconds"}
+# Duracoes conferidas com ffprobe nos videos de video/.
+PERIODICO_LABEL = {"pt": "Vídeo do Laboratório Periódico, 1 minuto e 37 segundos",
+                   "en": "Laboratório Periódico video, 1 minute and 37 seconds"}
 HARPA_LABEL = {"pt": "Vídeo da Harpa Cristã, 1 minuto e 25 segundos",
                "en": "Harpa Cristã video, 1 minute and 29 seconds"}
 
@@ -92,9 +95,11 @@ def _extras(lang, raiz):
     video = _video(raiz, f"poster-{lang}-16x9.jpg", f"orbita-{lang}-16x9.mp4", VIDEO_LABEL[lang])
     fotons = _video(raiz, f"poster-fotons-{lang}-16x9.jpg", f"laboratorio-de-fotons-{lang}-16x9.mp4",
                     FOTONS_LABEL[lang])
+    periodico = _video(raiz, f"poster-periodico-{lang}-16x9.jpg", f"laboratorio-periodico-{lang}-16x9.mp4",
+                       PERIODICO_LABEL[lang])
     harpa = _video(raiz, f"poster-harpa-{lang}-16x9.jpg", f"harpa-crista-{lang}-16x9.mp4", HARPA_LABEL[lang])
     return {"cabeca_idioma": cabeca, "troca_idioma": troca, "orbita_video": video, "fotons_video": fotons,
-            "harpa_video": harpa, "apoio": _apoio(lang, raiz),
+            "harpa_video": harpa, "periodico_video": periodico, "apoio": _apoio(lang, raiz),
             # Link do menu para a secao de doacao: so onde ela existe.
             "nav_apoie": '<a href="#apoie">Apoie</a>' if lang == "pt" else ""}
 

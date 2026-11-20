@@ -71,6 +71,16 @@ class Site(unittest.TestCase):
         self.assertNotIn('id="apoie"', self.en)
         self.assertNotIn("BR.GOV.BCB.PIX", self.en)
 
+    def test_video_periodico(self):
+        for lang, html in (("pt", self.pt), ("en", self.en)):
+            secao = html[html.index('class="game periodico"'):]
+            secao = secao[:secao.index("</section>")]
+            self.assertIn(f"video/laboratorio-periodico-{lang}-16x9.mp4", secao)
+            self.assertIn(f"video/poster-periodico-{lang}-16x9.jpg", secao)
+            self.assertLess(secao.index("<video"), secao.index('class="shots"'))
+        self.assertIn('aria-label="Vídeo do Laboratório Periódico, 1 minuto e 37 segundos"', self.pt)
+        self.assertIn('aria-label="Laboratório Periódico video, 1 minute and 37 seconds"', self.en)
+
     def test_hreflang(self):
         for html in (self.pt, self.en):
             self.assertIn('hreflang="pt-BR" href="https://eduardo7321.github.io/"', html)
