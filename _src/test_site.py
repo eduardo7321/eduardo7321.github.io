@@ -43,6 +43,15 @@ class Site(unittest.TestCase):
         self.assertIn('aria-label="Vídeo do Laboratório de Fótons, 1 minuto e 32 segundos"', self.pt)
         self.assertIn('aria-label="Photon Lab video, 1 minute and 30 seconds"', self.en)
 
+    def test_video_harpa(self):
+        for lang, html in (("pt", self.pt), ("en", self.en)):
+            harpa = html[html.index('class="harpa"'):]
+            harpa = harpa[:harpa.index("</section>")]
+            self.assertIn(f"video/harpa-crista-{lang}-16x9.mp4", harpa)
+            self.assertIn(f"video/poster-harpa-{lang}-16x9.jpg", harpa)
+        self.assertIn('aria-label="Vídeo da Harpa Cristã, 1 minuto e 25 segundos"', self.pt)
+        self.assertIn('aria-label="Harpa Cristã video, 1 minute and 29 seconds"', self.en)
+
     def test_hreflang(self):
         for html in (self.pt, self.en):
             self.assertIn('hreflang="pt-BR" href="https://eduardo7321.github.io/"', html)

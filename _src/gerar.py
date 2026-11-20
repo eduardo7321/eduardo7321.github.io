@@ -16,6 +16,8 @@ IDIOMAS = {"pt": ("", "PT"), "en": ("en/", "EN")}
 VIDEO_LABEL = {"pt": "Vídeo do Órbita, 1 minuto e 18 segundos", "en": "Orbita video, 52 seconds"}
 FOTONS_LABEL = {"pt": "Vídeo do Laboratório de Fótons, 1 minuto e 32 segundos",
                 "en": "Photon Lab video, 1 minute and 30 seconds"}
+HARPA_LABEL = {"pt": "Vídeo da Harpa Cristã, 1 minuto e 25 segundos",
+               "en": "Harpa Cristã video, 1 minute and 29 seconds"}
 
 
 def _video(raiz, poster, mp4, rotulo):
@@ -43,7 +45,9 @@ def _extras(lang, raiz):
     video = _video(raiz, f"poster-{lang}-16x9.jpg", f"orbita-{lang}-16x9.mp4", VIDEO_LABEL[lang])
     fotons = _video(raiz, f"poster-fotons-{lang}-16x9.jpg", f"laboratorio-de-fotons-{lang}-16x9.mp4",
                     FOTONS_LABEL[lang])
-    return {"cabeca_idioma": cabeca, "troca_idioma": troca, "orbita_video": video, "fotons_video": fotons}
+    harpa = _video(raiz, f"poster-harpa-{lang}-16x9.jpg", f"harpa-crista-{lang}-16x9.mp4", HARPA_LABEL[lang])
+    return {"cabeca_idioma": cabeca, "troca_idioma": troca, "orbita_video": video, "fotons_video": fotons,
+            "harpa_video": harpa}
 
 
 def main():

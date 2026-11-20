@@ -168,6 +168,7 @@ if (typeof window !== "undefined" && location.protocol !== "file:" &&
   .harpa h3 { font-size: 1.3rem; font-weight: 600; }
   .harpa p { margin: 4px 0 0; color: var(--ink-soft); font-size: 1rem; }
   .harpa .links { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; font-size: 0.95rem; }
+  .harpa video.feature { grid-column: 1 / -1; border-radius: 12px; }
 
   /* fale conosco */
   .talk { padding: 0 0 84px; }
@@ -395,6 +396,7 @@ if (typeof window !== "undefined" && location.protocol !== "file:" &&
         <a class="btn btn-ink" href="https://play.google.com/store/apps/details?id=com.eduardo.harpacrista">Baixar na Google Play</a>
         <a href="https://github.com/eduardo7321/harpa-crista-app/blob/main/PRIVACY.md">Política de privacidade</a>
       </div>
+      <video class="feature" controls preload="none" playsinline width="1920" height="1080" poster="video/poster-harpa-pt-16x9.jpg" aria-label="Vídeo da Harpa Cristã, 1 minuto e 25 segundos"><source src="video/harpa-crista-pt-16x9.mp4" type="video/mp4"></video>
     </div>
   </section>
   <section class="wrap talk" id="fale" aria-labelledby="t-talk">
