@@ -17,8 +17,8 @@ VIDEO_LABEL = {"pt": "Vídeo do Órbita, 1 minuto e 18 segundos", "en": "Orbita 
 FOTONS_LABEL = {"pt": "Vídeo do Laboratório de Fótons, 1 minuto e 32 segundos",
                 "en": "Photon Lab video, 1 minute and 30 seconds"}
 # Duracoes conferidas com ffprobe nos videos de video/.
-PERIODICO_LABEL = {"pt": "Vídeo do Laboratório Periódico, 1 minuto e 37 segundos",
-                   "en": "Laboratório Periódico video, 1 minute and 37 seconds"}
+PERIODICO_LABEL = {"pt": "Vídeo do Laboratório Periódico, 1 minuto e 35 segundos",
+                   "en": "Laboratório Periódico video, 1 minute and 36 seconds"}
 HARPA_LABEL = {"pt": "Vídeo da Harpa Cristã, 1 minuto e 25 segundos",
                "en": "Harpa Cristã video, 1 minute and 29 seconds"}
 

@@ -26,6 +26,15 @@ class Site(unittest.TestCase):
         for html in (self.pt, self.en):
             self.assertNotIn("{{", html)
 
+    def test_so_a_harpa_diz_sem_anuncios(self):
+        # Fotons, Orbita e Periodico tem (ou vao ter) anuncio; so a Harpa e livre deles.
+        for chave, txt in json.loads((SRC / "textos/pt.json").read_text(encoding="utf-8")).items():
+            if "sem anúncio" in txt.lower() or "não tem anúncio" in txt.lower():
+                self.assertTrue(chave.startswith("harpa"), chave)
+        for chave, txt in json.loads((SRC / "textos/en.json").read_text(encoding="utf-8")).items():
+            if "no ads" in txt.lower():
+                self.assertTrue(chave.startswith("harpa"), chave)
+
     def test_idioma_da_pagina(self):
         self.assertIn('<html lang="pt-BR">', self.pt)
         self.assertIn('<html lang="en">', self.en)
@@ -78,8 +87,8 @@ class Site(unittest.TestCase):
             self.assertIn(f"video/laboratorio-periodico-{lang}-16x9.mp4", secao)
             self.assertIn(f"video/poster-periodico-{lang}-16x9.jpg", secao)
             self.assertLess(secao.index("<video"), secao.index('class="shots"'))
-        self.assertIn('aria-label="Vídeo do Laboratório Periódico, 1 minuto e 37 segundos"', self.pt)
-        self.assertIn('aria-label="Laboratório Periódico video, 1 minute and 37 seconds"', self.en)
+        self.assertIn('aria-label="Vídeo do Laboratório Periódico, 1 minuto e 35 segundos"', self.pt)
+        self.assertIn('aria-label="Laboratório Periódico video, 1 minute and 36 seconds"', self.en)
 
     def test_hreflang(self):
         for html in (self.pt, self.en):
