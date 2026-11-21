@@ -52,6 +52,10 @@ class Site(unittest.TestCase):
             self.assertNotIn("{{", html)
             for lang_html in (self.pt, self.en):      # rodape liga todas, sem dominio fixo
                 self.assertIn(f'href="{"../" if lang_html is self.en else ""}{pasta}/"', lang_html)
+        for pasta in self.POLITICAS:              # todas em portugues e ingles
+            h = (RAIZ / pasta / "index.html").read_text(encoding="utf-8")
+            self.assertIn("English version below", h, pasta)
+            self.assertIn("Privacy policy", h, pasta)
         harpa = (RAIZ / "harpa-crista-privacidade/index.html").read_text(encoding="utf-8")
         self.assertIn("Não há anúncios", harpa)
         per = (RAIZ / "laboratorio-periodico-privacidade/index.html").read_text(encoding="utf-8")

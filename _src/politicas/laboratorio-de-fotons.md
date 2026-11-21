@@ -1,6 +1,8 @@
 
 # Política de privacidade — Laboratório de Fótons
 
+*English version below.*
+
 Última atualização: 15 de outubro de 2026.
 
 Esta política vale para o aplicativo **Laboratório de Fótons** (`com.eduardo.laboratoriodefotons`) para Android.
@@ -63,3 +65,70 @@ Se esta política mudar, a nova versão será publicada nesta mesma página, com
 ## Contato
 
 Dúvidas sobre esta política: eduardo.jose184@gmail.com
+
+---
+
+# Privacy policy — Photon Lab (Laboratório de Fótons)
+
+Last updated: October 15, 2026.
+
+This policy applies to the **Laboratório de Fótons** app (Photon Lab, `com.eduardo.laboratoriodefotons`) for Android.
+
+## Summary
+
+Photon Lab **does not ask for or store any of your personal data**: there is no sign-up, no login and no purchases. The game shows ads now and then, during breaks between levels, provided by Google AdMob, and that is the only reason the app uses the internet.
+
+## Data kept on your device
+
+The game stores only two things, only on your device:
+
+- **Progress:** how many stars you earned on each level.
+- **Preferences:** the music and sound effects volume and the chosen language.
+
+These files never leave your device, are not sent to any server and are not included in Android's automatic backup. They are deleted when you uninstall the game or clear the app's data in Android settings.
+
+## Ads
+
+About every 10 minutes of play, during a break between levels, the game shows a short ad. An ad never appears when you open the game or in the middle of a level. Ads come from **Google AdMob**, a Google service.
+
+- The game is rated for children on Google Play. For this reason, ads are configured as **child-directed**: they are **non-personalized ads**, with no interest tracking and no remarketing.
+- With this setting, the **Android advertising ID is not transmitted**, and the app does not even have permission to read it.
+- To choose and show an ad, AdMob needs an internet connection and automatically receives some technical information:
+  - **Approximate location:** the country or region, estimated from the network (IP) address.
+  - **Interactions with the ad:** for example, whether the ad was opened, viewed or tapped.
+  - **Diagnostics:** performance data, such as loading time and crashes.
+  - **App identifier on the device** (*app set ID*), which is not the advertising ID, plus information such as device type and language.
+- Google uses this information to show ads, to measure their performance and to prevent fraud. It is sent over an encrypted connection.
+- The game does not send AdMob your name, email, precise location, contacts, photos or any information that identifies you.
+
+Google's data processing is described in Google's privacy policy: https://policies.google.com/privacy
+
+## Android permissions
+
+The game asks for two permissions, both used only to show ads:
+
+- **Internet** (`INTERNET`)
+- **View network connections** (`ACCESS_NETWORK_STATE`)
+
+Google's ads library also declares two technical permissions, which Android grants without asking and which give no access to any of your data: keep the processor awake during short tasks (`WAKE_LOCK`) and run tasks in the background (`FOREGROUND_SERVICE`).
+
+Apart from ads, the whole game works offline: all levels, the free lab and your progress work without a connection.
+
+## What the game does not do
+
+- No sign-up, login or in-app purchases.
+- No analytics tools of its own and no tracking of what you do in the game; the only measurement is the one AdMob makes of its own ads, described above.
+- No collection of precise location, contacts, photos, microphone, camera or app list.
+- No chat, comments or any interaction between players.
+
+## Children
+
+The game was made for children aged 8 and up and for all ages above that. The game collects no personal information from children. Ads follow the Google Play Families Policy: they are non-personalized and limited to content suitable for all ages.
+
+## Changes to this policy
+
+If this policy changes, the new version will be published on this same page, with the update date.
+
+## Contact
+
+Questions about this policy: eduardo.jose184@gmail.com
