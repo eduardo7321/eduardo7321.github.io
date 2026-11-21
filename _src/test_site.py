@@ -142,6 +142,11 @@ class Site(unittest.TestCase):
         self.assertIn('aria-label="Vídeo do Laboratório Periódico, 1 minuto e 35 segundos"', self.pt)
         self.assertIn('aria-label="Laboratório Periódico video, 1 minute and 36 seconds"', self.en)
 
+    def test_politica_da_harpa_e_a_do_site(self):
+        for html in (self.pt, self.en):
+            self.assertNotIn("github.com/eduardo7321/harpa-crista-app", html)
+            self.assertIn('harpa-crista-privacidade/"', html)
+
     def test_rodape_tem_o_youtube(self):
         for lang, html in (("pt", self.pt), ("en", self.en)):
             rodape = html[html.index("<footer"):html.index("</footer>")]
