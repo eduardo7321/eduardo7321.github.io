@@ -8,6 +8,8 @@ import json
 import pathlib
 import re
 
+import politica
+
 SRC = pathlib.Path(__file__).parent
 RAIZ = SRC.parent
 URL = "https://eduardo7321.github.io/"
@@ -116,10 +118,12 @@ def _extras(lang, raiz):
     return {"cabeca_idioma": cabeca, "troca_idioma": troca, "orbita_video": video, "fotons_video": fotons,
             "harpa_video": harpa, "periodico_video": periodico, "apoio": _apoio(lang, raiz),
             # Link do menu para a secao de doacao: so onde ela existe.
+            "url": URL, "rodape_politicas": politica.rodape(lang, raiz),
             "nav_apoie": '<a href="#apoie">Apoie</a>' if lang == "pt" else '<a href="#support">Support</a>'}
 
 
 def main():
+    politica.gerar()
     molde = (SRC / "molde.html").read_text(encoding="utf-8")
     for lang, (pasta, _) in IDIOMAS.items():
         textos = json.loads((SRC / "textos" / f"{lang}.json").read_text(encoding="utf-8"))

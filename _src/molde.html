@@ -10,7 +10,7 @@
 <meta property="og:site_name" content="Iluminar Apps">
 <meta property="og:title" {{og_title}}>
 <meta property="og:description" {{og_desc}}>
-<meta property="og:image" content="https://eduardo7321.github.io/img/orbita-destaque.jpg">
+<meta property="og:image" content="{{url}}img/orbita-destaque.jpg">
 {{cabeca_idioma}}
 <link rel="icon" href="{{raiz}}favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -256,7 +256,7 @@
               <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 2.8v18.4c0 .5.5.8 1 .6l15.6-8.9c.5-.3.5-1 0-1.3L5 2.2c-.5-.2-1 .1-1 .6Z"/></svg>
               {{btn_play_gratis}}
             </a>
-            <p class="meta">{{orb_meta}} href="https://eduardo7321.github.io/orbita-privacidade/"{{politica}}</p>
+            <p class="meta">{{orb_meta}} href="{{raiz}}orbita-privacidade/"{{politica}}</p>
           </div>
           <div>
             {{orbita_video}}
@@ -289,7 +289,7 @@
               <li>{{fot_l4}}</li>
             </ul>
             {{em_breve}}
-            <p class="meta">{{fot_meta}} href="https://eduardo7321.github.io/laboratorio-de-fotons-privacidade/"{{politica}}</p>
+            <p class="meta">{{fot_meta}} href="{{raiz}}laboratorio-de-fotons-privacidade/"{{politica}}</p>
           </div>
           <div>
             {{fotons_video}}
@@ -432,9 +432,7 @@
     </div>
     <div>
       {{foot_priv}}
-      <p><a href="https://eduardo7321.github.io/orbita-{{foot_orbita}}</p>
-      <p><a href="https://eduardo7321.github.io/laboratorio-de-fotons-{{foot_fotons}}</p>
-      <p><a href="https://github.com/eduardo7321/harpa-crista-app/blob/main/PRIVACY.md">Harpa Cristã</a></p>
+      {{rodape_politicas}}
     </div>
   </div>
 </footer>

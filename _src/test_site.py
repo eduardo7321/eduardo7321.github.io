@@ -35,6 +35,41 @@ class Site(unittest.TestCase):
             if "no ads" in txt.lower():
                 self.assertTrue(chave.startswith("harpa"), chave)
 
+    POLITICAS = {
+        "orbita-privacidade": "com.eduardo.orbita",
+        "laboratorio-de-fotons-privacidade": "com.eduardo.laboratoriodefotons",
+        "harpa-crista-privacidade": "com.eduardo.harpacrista",
+        "laboratorio-periodico-privacidade": "com.eduardo.laboratorioperiodico",
+    }
+
+    def test_politicas_no_site(self):
+        for pasta, pacote in self.POLITICAS.items():
+            html = (RAIZ / pasta / "index.html").read_text(encoding="utf-8")
+            self.assertIn(pacote, html, pasta)
+            self.assertIn("<h1", html)
+            self.assertIn('href="../"', html)          # volta para o site
+            self.assertNotIn("**", html, pasta)        # markdown convertido
+            self.assertNotIn("{{", html)
+            for lang_html in (self.pt, self.en):      # rodape liga todas, sem dominio fixo
+                self.assertIn(f'href="{"../" if lang_html is self.en else ""}{pasta}/"', lang_html)
+        harpa = (RAIZ / "harpa-crista-privacidade/index.html").read_text(encoding="utf-8")
+        self.assertIn("Não há anúncios", harpa)
+        per = (RAIZ / "laboratorio-periodico-privacidade/index.html").read_text(encoding="utf-8")
+        self.assertIn("AdMob", per)
+        self.assertIn("13 anos", per)
+        self.assertNotIn("eduardo7321.github.io", (SRC / "molde.html").read_text(encoding="utf-8"))
+
+    def test_markdown_da_politica(self):
+        import politica
+        h = politica.md_para_html("# T\n\nUm **b** e `c` em https://x.org/a\n\n- um\n  - dois\n- tres\n\n---\n\n## S")
+        self.assertIn("<h1>T</h1>", h)
+        self.assertIn("<strong>b</strong>", h)
+        self.assertIn("<code>c</code>", h)
+        self.assertIn('<a href="https://x.org/a">https://x.org/a</a>', h)
+        self.assertIn("<li>um<ul><li>dois</li></ul></li>", h)
+        self.assertIn("<hr>", h)
+        self.assertIn("<h2>S</h2>", h)
+
     def test_idioma_da_pagina(self):
         self.assertIn('<html lang="pt-BR">', self.pt)
         self.assertIn('<html lang="en">', self.en)
