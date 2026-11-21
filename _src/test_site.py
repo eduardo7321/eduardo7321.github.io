@@ -142,6 +142,24 @@ class Site(unittest.TestCase):
         self.assertIn('aria-label="Vídeo do Laboratório Periódico, 1 minuto e 35 segundos"', self.pt)
         self.assertIn('aria-label="Laboratório Periódico video, 1 minute and 36 seconds"', self.en)
 
+    def test_iluminar_school(self):
+        for lang, html in (("pt", self.pt), ("en", self.en)):
+            secao = html[html.index('id="school"'):]
+            secao = secao[:secao.index("</section>")]
+            for sub in ("school", "ia", "software"):
+                self.assertIn(f'href="https://{sub}.iluminarapps.com/"', secao, lang)
+            self.assertIn(f"video/iluminar-school-{lang}-16x9.mp4", secao)
+            self.assertIn(f"video/poster-school-{lang}-16x9.jpg", secao)
+            self.assertNotIn("anúncio", secao.lower())
+            nav = html[html.index("<nav"):html.index("</nav>")]
+            self.assertIn('href="#school"', nav)
+            # depois dos jogos e antes da parte dos professores
+            self.assertLess(html.index('class="game periodico"'), html.index('id="school"'))
+            self.assertLess(html.index('id="school"'), html.index('id="professores"'))
+        self.assertIn('aria-label="Vídeo da Iluminar School, 1 minuto e 3 segundos"', self.pt)
+        self.assertIn('aria-label="Iluminar School video, 1 minute and 2 seconds"', self.en)
+        self.assertIn("in Portuguese", self.en[self.en.index('id="school"'):])
+
     def test_hreflang(self):
         for html in (self.pt, self.en):
             self.assertIn('hreflang="pt-BR" href="https://iluminarapps.com/"', html)

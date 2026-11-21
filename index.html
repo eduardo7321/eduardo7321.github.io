@@ -154,6 +154,22 @@ if (typeof window !== "undefined" && location.protocol !== "file:" &&
   .cast figure { margin: 0; flex: 1 1 0; text-align: center; font-size: 0.9rem; color: var(--periodico-soft); }
   .cast img { margin: 0 auto 4px; width: 100%; max-width: 120px; }
 
+  /* iluminar school: a parte de estudos, em tons de indigo como o site dela */
+  .school { padding: 84px 0; background: #eceffd; }
+  .school-top { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: 48px; align-items: center; }
+  .school h2 { font-size: clamp(2rem, 4.4vw, 3.2rem); font-weight: 800; letter-spacing: -0.015em; }
+  .school-tag { margin: 6px 0 0; font-weight: 700; color: #3f43b8; }
+  .school-top p { color: var(--ink-soft); }
+  .school-top .school-nota { font-size: 0.98rem; margin-bottom: 26px; }
+  .ramos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; margin-top: 56px; }
+  .ramo { display: grid; grid-template-columns: 150px 1fr; gap: 24px; align-items: start; padding: 26px; background: #fff; border: 1px solid #d3d8f3; border-radius: 18px; }
+  .ramo img { width: 150px; aspect-ratio: 9 / 16; object-fit: cover; object-position: top; border-radius: 14px; border: 1px solid var(--line); }
+  .ramo h3 { font-size: 1.5rem; font-weight: 800; }
+  .ramo p { margin: 8px 0 0; color: var(--ink-soft); }
+  .ramo .numeros { font-weight: 700; color: #3f43b8; font-size: 0.95rem; }
+  .ramo ul { margin: 12px 0 20px; padding-left: 20px; color: var(--ink-soft); font-size: 0.98rem; }
+  .ramo li { margin: 3px 0; }
+
   /* professores */
   .teach { padding: 84px 0; }
   .teach h2 { font-size: clamp(1.9rem, 4vw, 2.8rem); font-weight: 800; max-width: 22ch; }
@@ -218,6 +234,7 @@ if (typeof window !== "undefined" && location.protocol !== "file:" &&
     .phones img { width: 170px; }
     .game-body { grid-template-columns: minmax(0, 1fr); gap: 28px; }
     .teach-grid { grid-template-columns: 1fr; gap: 22px; }
+    .school-top, .ramos { grid-template-columns: minmax(0, 1fr); gap: 28px; }
     footer .wrap { grid-template-columns: 1fr; }
     .talk-box { grid-template-columns: 1fr; gap: 24px; padding: 24px; }
     .apoio-box { grid-template-columns: 1fr; gap: 24px; padding: 24px; }
@@ -231,6 +248,9 @@ if (typeof window !== "undefined" && location.protocol !== "file:" &&
     .phones { height: 300px; }
     .phones img { width: 128px; border-width: 4px; border-radius: 18px; }
     .game { padding: 56px 0; }
+    .school { padding: 56px 0; }
+    .ramo { grid-template-columns: 1fr; padding: 20px 16px; }
+    .ramo img { width: 100%; max-width: 220px; aspect-ratio: 4 / 5; }
     .game-head { grid-template-columns: 64px 1fr; gap: 14px; }
     .game-head img { width: 64px; height: 64px; border-radius: 15px; }
     .orbita .shots img { width: 140px; }
@@ -248,6 +268,7 @@ if (typeof window !== "undefined" && location.protocol !== "file:" &&
   <a class="brand" href="./"><img src="img/marca-simbolo.png" alt="">Iluminar Apps</a>
   <nav aria-label="Seções">
     <a href="#jogos">Jogos</a>
+    <a href="#school">School</a>
     <a href="#professores">Para professores</a>
     <a href="#fale">Contato</a>
     <a href="#apoie">Apoie</a>
@@ -377,6 +398,42 @@ if (typeof window !== "undefined" && location.protocol !== "file:" &&
       </div>
     </section>
   </div>
+
+  <section class="school" id="school" aria-labelledby="t-school">
+    <div class="wrap">
+      <div class="school-top">
+        <div>
+          <h2 id="t-school">Iluminar School</h2>
+          <p class="school-tag">Cursos grátis de IA e engenharia de software</p>
+          <p>A Iluminar School é a parte de estudos da Iluminar Apps, para quem quer aprender fazendo. Cada tópico tem teoria ilustrada, um laboratório para mexer, exercícios em Python corrigidos na hora e questões com a explicação de cada alternativa.</p>
+          <p class="school-nota">Grátis, em português, no navegador do computador ou do celular. O app Android funciona até sem internet.</p>
+          <a class="btn btn-gold" href="https://school.iluminarapps.com/" target="_blank" rel="noopener">Conhecer a Iluminar School</a>
+        </div>
+        <video class="feature" controls preload="none" playsinline width="1920" height="1080" poster="video/poster-school-pt-16x9.jpg" aria-label="Vídeo da Iluminar School, 1 minuto e 3 segundos"><source src="video/iluminar-school-pt-16x9.mp4" type="video/mp4"></video>
+      </div>
+      <div class="ramos">
+        <article class="ramo">
+          <img src="img/school-ia.jpg" alt="Laboratório do K-Means no curso de IA" width="540" height="960" loading="lazy">
+          <div>
+            <h3>IA na prática</h3>
+            <p>Da estatística aos LLMs, do notebook à produção.</p>
+            <p class="numeros">75 tópicos · 454 exercícios · 929 questões</p>
+            <ul><li>Estatística, testes A/B e inferência causal</li><li>Machine learning, da regressão ao boosting</li><li>Redes neurais, CNN, RNN e Transformers</li><li>LLMs, RAG, agentes e MLOps</li></ul>
+            <a class="btn btn-ink" href="https://ia.iluminarapps.com/" target="_blank" rel="noopener">Abrir o curso</a>
+          </div>
+        </article><article class="ramo">
+          <img src="img/school-software.jpg" alt="Laboratório dos tipos de JOIN no curso de engenharia de software" width="540" height="960" loading="lazy">
+          <div>
+            <h3>Engenharia de software</h3>
+            <p>Os fundamentos que um dev sênior usa todo dia.</p>
+            <p class="numeros">66 tópicos · 264 exercícios · 396 questões</p>
+            <ul><li>SQL, índices e transações num console de verdade</li><li>Linux, Git e Docker</li><li>Arquitetura, APIs, filas e cache</li><li>Segurança, padrões de projeto e testes</li></ul>
+            <a class="btn btn-ink" href="https://software.iluminarapps.com/" target="_blank" rel="noopener">Abrir o curso</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
 
   <section class="wrap teach" id="professores" aria-labelledby="t-teach">
     <h2 id="t-teach">Feito para usar em sala de aula, também.</h2>

@@ -21,6 +21,8 @@ FOTONS_LABEL = {"pt": "Vídeo do Laboratório de Fótons, 1 minuto e 32 segundos
 # Duracoes conferidas com ffprobe nos videos de video/.
 PERIODICO_LABEL = {"pt": "Vídeo do Laboratório Periódico, 1 minuto e 35 segundos",
                    "en": "Laboratório Periódico video, 1 minute and 36 seconds"}
+SCHOOL_LABEL = {"pt": "Vídeo da Iluminar School, 1 minuto e 3 segundos",
+                "en": "Iluminar School video, 1 minute and 2 seconds"}
 HARPA_LABEL = {"pt": "Vídeo da Harpa Cristã, 1 minuto e 25 segundos",
                "en": "Harpa Cristã video, 1 minute and 29 seconds"}
 
@@ -87,6 +89,89 @@ def _apoio(lang, raiz):
   </script>"""
 
 
+# Iluminar School: os cursos ficam em subdominios proprios (outro repositorio, no Netlify).
+# Numeros conferidos em school.iluminarapps.com em 21/11/2026.
+SCHOOL = {
+    "pt": {
+        "tag": "Cursos grátis de IA e engenharia de software",
+        "p": "A Iluminar School é a parte de estudos da Iluminar Apps, para quem quer aprender fazendo. "
+             "Cada tópico tem teoria ilustrada, um laboratório para mexer, exercícios em Python corrigidos "
+             "na hora e questões com a explicação de cada alternativa.",
+        "nota": "Grátis, em português, no navegador do computador ou do celular. O app Android funciona até sem internet.",
+        "btn": "Conhecer a Iluminar School",
+        "abrir": "Abrir o curso",
+        "ramos": [
+            ("ia", "IA na prática", "Da estatística aos LLMs, do notebook à produção.",
+             "75 tópicos · 454 exercícios · 929 questões",
+             ["Estatística, testes A/B e inferência causal", "Machine learning, da regressão ao boosting",
+              "Redes neurais, CNN, RNN e Transformers", "LLMs, RAG, agentes e MLOps"],
+             "Laboratório do K-Means no curso de IA"),
+            ("software", "Engenharia de software", "Os fundamentos que um dev sênior usa todo dia.",
+             "66 tópicos · 264 exercícios · 396 questões",
+             ["SQL, índices e transações num console de verdade", "Linux, Git e Docker",
+              "Arquitetura, APIs, filas e cache", "Segurança, padrões de projeto e testes"],
+             "Laboratório dos tipos de JOIN no curso de engenharia de software"),
+        ],
+    },
+    "en": {
+        "tag": "Free courses in AI and software engineering",
+        "p": "Iluminar School is the learning side of Iluminar Apps, for people who learn by doing. "
+             "Every topic has illustrated theory, a lab to play with, Python exercises graded instantly "
+             "and questions that explain every option.",
+        "nota": "Free, in Portuguese, in the browser on your computer or phone. The Android app even works offline.",
+        "btn": "Visit Iluminar School",
+        "abrir": "Open the course",
+        "ramos": [
+            ("ia", "AI in practice", "From statistics to LLMs, from the notebook to production.",
+             "75 topics · 454 exercises · 929 questions",
+             ["Statistics, A/B tests and causal inference", "Machine learning, from regression to boosting",
+              "Neural networks, CNNs, RNNs and Transformers", "LLMs, RAG, agents and MLOps"],
+             "The K-Means lab in the AI course"),
+            ("software", "Software engineering", "The fundamentals a senior developer uses every day.",
+             "66 topics · 264 exercises · 396 questions",
+             ["SQL, indexes and transactions in a real console", "Linux, Git and Docker",
+              "Architecture, APIs, queues and caching", "Security, design patterns and testing"],
+             "The JOIN types lab in the software engineering course"),
+        ],
+    },
+}
+
+
+def _school(lang, raiz):
+    t = SCHOOL[lang]
+    ramos = []
+    for sub, nome, frase, numeros, itens, alt in t["ramos"]:
+        lis = "".join(f"<li>{i}</li>" for i in itens)
+        ramos.append(f"""<article class="ramo">
+          <img src="{raiz}img/school-{sub}.jpg" alt="{alt}" width="540" height="960" loading="lazy">
+          <div>
+            <h3>{nome}</h3>
+            <p>{frase}</p>
+            <p class="numeros">{numeros}</p>
+            <ul>{lis}</ul>
+            <a class="btn btn-ink" href="https://{sub}.iluminarapps.com/" target="_blank" rel="noopener">{t["abrir"]}</a>
+          </div>
+        </article>""")
+    video = _video(raiz, f"poster-school-{lang}-16x9.jpg", f"iluminar-school-{lang}-16x9.mp4", SCHOOL_LABEL[lang])
+    return f"""<section class="school" id="school" aria-labelledby="t-school">
+    <div class="wrap">
+      <div class="school-top">
+        <div>
+          <h2 id="t-school">Iluminar School</h2>
+          <p class="school-tag">{t["tag"]}</p>
+          <p>{t["p"]}</p>
+          <p class="school-nota">{t["nota"]}</p>
+          <a class="btn btn-gold" href="https://school.iluminarapps.com/" target="_blank" rel="noopener">{t["btn"]}</a>
+        </div>
+        {video}
+      </div>
+      <div class="ramos">
+        {"".join(ramos)}
+      </div>
+    </div>
+  </section>"""
+
+
 def _video(raiz, poster, mp4, rotulo):
     return (f'<video class="feature" controls preload="none" playsinline width="1920" height="1080" '
             f'poster="{raiz}video/{poster}" aria-label="{rotulo}">'
@@ -117,6 +202,7 @@ def _extras(lang, raiz):
     harpa = _video(raiz, f"poster-harpa-{lang}-16x9.jpg", f"harpa-crista-{lang}-16x9.mp4", HARPA_LABEL[lang])
     return {"cabeca_idioma": cabeca, "troca_idioma": troca, "orbita_video": video, "fotons_video": fotons,
             "harpa_video": harpa, "periodico_video": periodico, "apoio": _apoio(lang, raiz),
+            "school": _school(lang, raiz), "nav_school": '<a href="#school">School</a>',
             # Link do menu para a secao de doacao: so onde ela existe.
             "url": URL, "rodape_politicas": politica.rodape(lang, raiz),
             "nav_apoie": '<a href="#apoie">Apoie</a>' if lang == "pt" else '<a href="#support">Support</a>'}

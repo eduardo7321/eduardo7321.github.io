@@ -118,6 +118,22 @@
   .cast figure { margin: 0; flex: 1 1 0; text-align: center; font-size: 0.9rem; color: var(--periodico-soft); }
   .cast img { margin: 0 auto 4px; width: 100%; max-width: 120px; }
 
+  /* iluminar school: a parte de estudos, em tons de indigo como o site dela */
+  .school { padding: 84px 0; background: #eceffd; }
+  .school-top { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: 48px; align-items: center; }
+  .school h2 { font-size: clamp(2rem, 4.4vw, 3.2rem); font-weight: 800; letter-spacing: -0.015em; }
+  .school-tag { margin: 6px 0 0; font-weight: 700; color: #3f43b8; }
+  .school-top p { color: var(--ink-soft); }
+  .school-top .school-nota { font-size: 0.98rem; margin-bottom: 26px; }
+  .ramos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; margin-top: 56px; }
+  .ramo { display: grid; grid-template-columns: 150px 1fr; gap: 24px; align-items: start; padding: 26px; background: #fff; border: 1px solid #d3d8f3; border-radius: 18px; }
+  .ramo img { width: 150px; aspect-ratio: 9 / 16; object-fit: cover; object-position: top; border-radius: 14px; border: 1px solid var(--line); }
+  .ramo h3 { font-size: 1.5rem; font-weight: 800; }
+  .ramo p { margin: 8px 0 0; color: var(--ink-soft); }
+  .ramo .numeros { font-weight: 700; color: #3f43b8; font-size: 0.95rem; }
+  .ramo ul { margin: 12px 0 20px; padding-left: 20px; color: var(--ink-soft); font-size: 0.98rem; }
+  .ramo li { margin: 3px 0; }
+
   /* professores */
   .teach { padding: 84px 0; }
   .teach h2 { font-size: clamp(1.9rem, 4vw, 2.8rem); font-weight: 800; max-width: 22ch; }
@@ -182,6 +198,7 @@
     .phones img { width: 170px; }
     .game-body { grid-template-columns: minmax(0, 1fr); gap: 28px; }
     .teach-grid { grid-template-columns: 1fr; gap: 22px; }
+    .school-top, .ramos { grid-template-columns: minmax(0, 1fr); gap: 28px; }
     footer .wrap { grid-template-columns: 1fr; }
     .talk-box { grid-template-columns: 1fr; gap: 24px; padding: 24px; }
     .apoio-box { grid-template-columns: 1fr; gap: 24px; padding: 24px; }
@@ -195,6 +212,9 @@
     .phones { height: 300px; }
     .phones img { width: 128px; border-width: 4px; border-radius: 18px; }
     .game { padding: 56px 0; }
+    .school { padding: 56px 0; }
+    .ramo { grid-template-columns: 1fr; padding: 20px 16px; }
+    .ramo img { width: 100%; max-width: 220px; aspect-ratio: 4 / 5; }
     .game-head { grid-template-columns: 64px 1fr; gap: 14px; }
     .game-head img { width: 64px; height: 64px; border-radius: 15px; }
     .orbita .shots img { width: 140px; }
@@ -212,6 +232,7 @@
   <a class="brand" href="./"><img src="{{raiz}}img/marca-simbolo.png" alt="">Iluminar Apps</a>
   <nav {{nav_label}}>
     <a href="#jogos"{{nav_jogos}}
+    {{nav_school}}
     <a href="#professores"{{nav_prof}}
     {{nav_contato}}
     {{nav_apoie}}
@@ -341,6 +362,8 @@
       </div>
     </section>
   </div>
+
+  {{school}}
 
   <section class="wrap teach" id="professores" aria-labelledby="t-teach">
     <h2 id="t-teach">{{teach_h2}}</h2>
