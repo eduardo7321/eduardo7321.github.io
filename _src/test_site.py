@@ -70,6 +70,11 @@ class Site(unittest.TestCase):
         self.assertIn("<hr>", h)
         self.assertIn("<h2>S</h2>", h)
 
+    def test_dominio_proprio(self):
+        self.assertEqual((RAIZ / "CNAME").read_text().strip(), "iluminarapps.com")
+        for html in (self.pt, self.en):
+            self.assertIn('content="https://iluminarapps.com/img/orbita-destaque.jpg"', html)
+
     def test_idioma_da_pagina(self):
         self.assertIn('<html lang="pt-BR">', self.pt)
         self.assertIn('<html lang="en">', self.en)
@@ -135,9 +140,9 @@ class Site(unittest.TestCase):
 
     def test_hreflang(self):
         for html in (self.pt, self.en):
-            self.assertIn('hreflang="pt-BR" href="https://eduardo7321.github.io/"', html)
-            self.assertIn('hreflang="en" href="https://eduardo7321.github.io/en/"', html)
-            self.assertIn('hreflang="x-default" href="https://eduardo7321.github.io/en/"', html)
+            self.assertIn('hreflang="pt-BR" href="https://iluminarapps.com/"', html)
+            self.assertIn('hreflang="en" href="https://iluminarapps.com/en/"', html)
+            self.assertIn('hreflang="x-default" href="https://iluminarapps.com/en/"', html)
 
     def test_caminhos_relativos_existem(self):
         for nome, html, base in (("pt", self.pt, RAIZ), ("en", self.en, RAIZ / "en")):

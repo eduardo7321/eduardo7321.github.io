@@ -12,7 +12,7 @@ import politica
 
 SRC = pathlib.Path(__file__).parent
 RAIZ = SRC.parent
-URL = "https://eduardo7321.github.io/"
+URL = "https://iluminarapps.com/"
 # codigo: (pasta de saida, rotulo do botao)
 IDIOMAS = {"pt": ("", "PT"), "en": ("en/", "EN")}
 VIDEO_LABEL = {"pt": "Vídeo do Órbita, 1 minuto e 18 segundos", "en": "Orbita video, 52 seconds"}
