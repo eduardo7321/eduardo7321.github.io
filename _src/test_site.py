@@ -142,6 +142,11 @@ class Site(unittest.TestCase):
         self.assertIn('aria-label="Vídeo do Laboratório Periódico, 1 minuto e 35 segundos"', self.pt)
         self.assertIn('aria-label="Laboratório Periódico video, 1 minute and 36 seconds"', self.en)
 
+    def test_rodape_tem_o_youtube(self):
+        for lang, html in (("pt", self.pt), ("en", self.en)):
+            rodape = html[html.index("<footer"):html.index("</footer>")]
+            self.assertIn('href="https://www.youtube.com/@iluminarapps"', rodape, lang)
+
     def test_iluminar_school(self):
         for lang, html in (("pt", self.pt), ("en", self.en)):
             secao = html[html.index('id="school"'):]
