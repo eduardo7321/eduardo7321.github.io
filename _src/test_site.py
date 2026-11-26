@@ -147,10 +147,12 @@ class Site(unittest.TestCase):
             self.assertNotIn("github.com/eduardo7321/harpa-crista-app", html)
             self.assertIn('harpa-crista-privacidade/"', html)
 
-    def test_rodape_tem_o_youtube(self):
+    def test_rodape_sem_o_youtube(self):
+        # Canal encerrado pelo Google em 26/11/2026 (recurso pendente): o link
+        # levaria a uma pagina de erro. Volta quando o canal voltar (b47bfe2).
         for lang, html in (("pt", self.pt), ("en", self.en)):
             rodape = html[html.index("<footer"):html.index("</footer>")]
-            self.assertIn('href="https://www.youtube.com/@iluminarapps"', rodape, lang)
+            self.assertNotIn("youtube.com", rodape, lang)
 
     def test_iluminar_school(self):
         for lang, html in (("pt", self.pt), ("en", self.en)):
