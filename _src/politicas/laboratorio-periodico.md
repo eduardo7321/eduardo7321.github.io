@@ -2,19 +2,19 @@
 
 *English version below.*
 
-Última atualização: 20 de novembro de 2026.
+Última atualização: 25 de novembro de 2026.
 
-Esta política vale para o aplicativo **Laboratório Periódico** (`com.eduardo.laboratorioperiodico`) para Android.
+Esta política vale para o aplicativo **Laboratório Periódico** (`com.eduardo.laboratorioperiodico`) para Android. O jogo tem versão em português e em inglês.
 
 ## Resumo
 
-O Laboratório Periódico **não pede nem guarda nenhum dado pessoal seu**: não tem cadastro, login nem compras. O jogo exibe anúncios de vez em quando, numa pausa entre as fases, fornecidos pelo Google AdMob, e é só por causa deles que o app usa a internet.
+O Laboratório Periódico **não pede nem guarda nenhum dado pessoal seu**: não tem cadastro, login nem compras. O jogo exibe anúncios de vez em quando, numa pausa depois de uma batalha ou de um Duelo de Cartas, fornecidos pelo Google AdMob, e é só por causa deles que o app usa a internet.
 
 ## Dados que ficam no seu aparelho
 
 O jogo guarda, somente no próprio aparelho:
 
-- **Progresso:** as fases liberadas no mapa, as estrelas conquistadas, as reações descobertas no caderno e se o tutorial já foi visto.
+- **Progresso:** as fases liberadas no mapa, as estrelas conquistadas, as reações descobertas no caderno, o último time usado em cada fase, o recorde do Duelo de Cartas (vitórias e acertos), as dicas já explicadas e se o tutorial já foi visto.
 - **Preferências:** volumes de som, opções de vídeo, opções de acessibilidade (tamanho do texto, redução de tremores e de flashes, velocidade das animações) e o idioma.
 - **Controle dos anúncios:** o horário do último anúncio, para respeitar o intervalo mínimo entre anúncios.
 
@@ -22,7 +22,7 @@ Esses dados não são enviados a nenhum servidor. Eles são apagados quando voc�
 
 ## Anúncios
 
-O jogo mostra um anúncio em tela cheia somente numa pausa entre as fases, com no mínimo 10 minutos entre um anúncio e outro. Nunca aparece anúncio ao abrir o jogo nem no meio de uma batalha ou de um Duelo de Cartas. Os anúncios vêm do **Google AdMob**, um serviço do Google.
+O jogo mostra um anúncio em tela cheia somente numa pausa: ao voltar ao mapa depois de uma batalha ou ao sair do resultado de um Duelo de Cartas, com no mínimo 5 minutos entre um anúncio e outro. Nunca aparece anúncio ao abrir o jogo nem no meio de uma batalha ou de um Duelo de Cartas. Os anúncios vêm do **Google AdMob**, um serviço do Google.
 
 - Para escolher e exibir o anúncio, o AdMob precisa de conexão com a internet e recebe automaticamente algumas informações:
   - **Identificador de publicidade do Android**, usado para publicidade e para medir os anúncios. Você pode redefini-lo ou desativar a personalização nas configurações do Android (Google → Anúncios).
@@ -67,19 +67,19 @@ Dúvidas sobre esta política: eduardo.jose184@gmail.com
 
 # Privacy policy — Laboratório Periódico
 
-Last updated: November 20, 2026.
+Last updated: November 25, 2026.
 
-This policy applies to the **Laboratório Periódico** app (`com.eduardo.laboratorioperiodico`) for Android. The game is in Portuguese.
+This policy applies to the **Laboratório Periódico** app (`com.eduardo.laboratorioperiodico`) for Android. The game is available in Portuguese and English.
 
 ## Summary
 
-Laboratório Periódico **does not ask for or store any of your personal data**: there is no sign-up, no login and no purchases. The game shows ads now and then, during a break between levels, provided by Google AdMob, and that is the only reason the app uses the internet.
+Laboratório Periódico **does not ask for or store any of your personal data**: there is no sign-up, no login and no purchases. The game shows ads now and then, during a break after a battle or a Card Duel, provided by Google AdMob, and that is the only reason the app uses the internet.
 
 ## Data kept on your device
 
 The game stores, only on your device:
 
-- **Progress:** the levels unlocked on the map, the stars earned, the reactions discovered in the notebook and whether the tutorial has been seen.
+- **Progress:** the levels unlocked on the map, the stars earned, the reactions discovered in the notebook, the last team used in each level, the Card Duel record (wins and correct answers), the hints already explained and whether the tutorial has been seen.
 - **Preferences:** sound volumes, video options, accessibility options (text size, reduced shaking and flashes, animation speed) and language.
 - **Ad pacing:** the time of the last ad, to respect the minimum interval between ads.
 
@@ -87,7 +87,7 @@ This data is not sent to any server. It is deleted when you uninstall the game o
 
 ## Ads
 
-The game shows a full-screen ad only during a break between levels, with at least 10 minutes between ads. An ad never appears when you open the game or in the middle of a battle or a Card Duel. Ads come from **Google AdMob**, a Google service.
+The game shows a full-screen ad only during a break: when returning to the map after a battle or when leaving the result of a Card Duel, with at least 5 minutes between ads. An ad never appears when you open the game or in the middle of a battle or a Card Duel. Ads come from **Google AdMob**, a Google service.
 
 - To choose and show an ad, AdMob needs an internet connection and automatically receives some information:
   - **Android advertising ID**, used for advertising and for measuring ads. You can reset it or turn off ad personalization in Android settings (Google → Ads).
